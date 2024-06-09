@@ -377,7 +377,9 @@ public final class Tools {
             for (Object arg : versionInfo.arguments.game) {
                 if (arg instanceof String) {
                     minecraftArgs.add((String) arg);
-                } //TODO: implement else clause
+                } else {
+                    handleNonStringArgument(arg, minecraftArgs);
+                }
             }
         }
 
@@ -388,6 +390,21 @@ public final class Tools {
                                 versionInfo.minecraftArguments
                 ), varArgMap
         );
+    }
+
+    private static void handleNonStringArgument(Object argument, List<String> minecraftArgs) {
+        if(argument instanceof Map) {
+            @SuppressWarnings("unchecked") Map<String, Object> argMap = (Map<String, Object>) argument;
+            if(!argMap.containsKey("value") || argMap.containsKey("rules")) return;
+            Object value = argMap.get("value");
+            if(value instanceof String) minecraftArgs.add((String)value);
+            else if(value instanceof List) {
+                @SuppressWarnings("unchecked") List<Object> argList = (List<Object>) value;
+                for(Object arg : argList){
+                    if(arg instanceof String) minecraftArgs.add((String)arg);
+                }
+            }
+        }
     }
 
     public static String fromStringArray(String[] strArr) {
@@ -416,8 +433,22 @@ public final class Tools {
             library.downloads.artifact != null &&
             library.downloads.artifact.path != null)
             return library.downloads.artifact.path;
+
         String[] libInfos = library.name.split(":");
-        return libInfos[0].replaceAll("\\.", "/") + "/" + libInfos[1] + "/" + libInfos[2] + "/" + libInfos[1] + "-" + libInfos[2] + ".jar";
+        StringBuilder artifactPath = new StringBuilder()
+                .append(libInfos[0].replaceAll("\\.", "/")).append('/')
+                .append(libInfos[1]).append('/')
+                .append(libInfos[2]).append('/')
+                .append(libInfos[1]).append('-').append(libInfos[2]);
+        // Any additional components appended as - so that we don't replace any files with
+        // eachother during download/ or classpath building.
+        if(libInfos.length > 3) {
+            for(int i = 3; i < libInfos.length; i++) {
+                artifactPath.append('-').append(libInfos[i]);
+            }
+        }
+        artifactPath.append(".jar");
+        return artifactPath.toString();
     }
 
     public static String getClientClasspath(String version) {

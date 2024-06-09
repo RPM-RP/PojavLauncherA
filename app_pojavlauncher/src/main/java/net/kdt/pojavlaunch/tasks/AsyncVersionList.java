@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 /** Class getting the version list, and that's all really */
 public class AsyncVersionList {
@@ -58,22 +59,35 @@ public class AsyncVersionList {
 
 
     @SuppressWarnings("SameParameterValue")
-    private JMinecraftVersionList downloadVersionList(String mirror){
+    private JMinecraftVersionList downloadVersionList(String mirrors){
         JMinecraftVersionList list = null;
         try{
-            Log.i("ExtVL", "Syncing to external: " + mirror);
-            String jsonString = downloadString(mirror);
-            list = Tools.GLOBAL_GSON.fromJson(jsonString, JMinecraftVersionList.class);
-            Log.i("ExtVL","Downloaded the version list, len=" + list.versions.length);
-
+            String[] mirrorsArray = mirrors.split(";");
+            JMinecraftVersionList[] versionLists = new JMinecraftVersionList[mirrorsArray.length];
+            int totalLength = 0;
+            for(int i = 0; i < mirrorsArray.length; i++) {
+                String mirror = mirrorsArray[i];
+                Log.i("ExtVL", "Syncing to external: " + mirror);
+                String jsonString = downloadString(mirror);
+                JMinecraftVersionList versionList = Tools.GLOBAL_GSON.fromJson(jsonString, JMinecraftVersionList.class);
+                totalLength += versionList.versions.length;
+                Log.i("ExtVL","Downloaded the version list, len=" + versionList.versions.length);
+                versionLists[i] = versionList;
+            }
+            list = new JMinecraftVersionList();
+            list.latest = new HashMap<>();
+            list.versions = new JMinecraftVersionList.Version[totalLength];
+            int offset = 0;
+            for(JMinecraftVersionList versionList : versionLists) {
+                int copyLen = versionList.versions.length;
+                System.arraycopy(versionList.versions, 0, list.versions, offset, copyLen);
+                offset += copyLen;
+            }
             // Then save the version list
             //TODO make it not save at times ?
             FileOutputStream fos = new FileOutputStream(Tools.DIR_DATA + "/version_list.json");
-            fos.write(jsonString.getBytes());
+            fos.write(Tools.GLOBAL_GSON.toJson(list).getBytes());
             fos.close();
-
-
-
         }catch (IOException e){
             Log.e("AsyncVersionList", e.toString());
         }

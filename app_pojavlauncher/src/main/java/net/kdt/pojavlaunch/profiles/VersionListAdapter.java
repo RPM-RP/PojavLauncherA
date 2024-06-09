@@ -35,6 +35,7 @@ public class VersionListAdapter extends BaseExpandableListAdapter implements Exp
         List<JMinecraftVersionList.Version> snapshotList = new FilteredSubList<>(versionList, item -> item.type.equals("snapshot"));
         List<JMinecraftVersionList.Version> betaList = new FilteredSubList<>(versionList, item -> item.type.equals("old_beta"));
         List<JMinecraftVersionList.Version> alphaList = new FilteredSubList<>(versionList, item -> item.type.equals("old_alpha"));
+        List<JMinecraftVersionList.Version> moddedList = new FilteredSubList<>(versionList, item -> item.type.equals("modified"));
 
         // Query installed versions
         mInstalledVersions = new File(Tools.DIR_GAME_NEW + "/versions").list();
@@ -46,9 +47,10 @@ public class VersionListAdapter extends BaseExpandableListAdapter implements Exp
                     ctx.getString(R.string.mcl_setting_veroption_release),
                     ctx.getString(R.string.mcl_setting_veroption_snapshot),
                     ctx.getString(R.string.mcl_setting_veroption_oldbeta),
-                    ctx.getString(R.string.mcl_setting_veroption_oldalpha)
+                    ctx.getString(R.string.mcl_setting_veroption_oldalpha),
+                    "Modded"
             };
-            mData = new List[]{ releaseList, snapshotList, betaList, alphaList};
+            mData = new List[]{ releaseList, snapshotList, betaList, alphaList, moddedList};
             mSnapshotListPosition = 1;
         }else{
             mGroups = new String[]{
@@ -56,9 +58,10 @@ public class VersionListAdapter extends BaseExpandableListAdapter implements Exp
                     ctx.getString(R.string.mcl_setting_veroption_release),
                     ctx.getString(R.string.mcl_setting_veroption_snapshot),
                     ctx.getString(R.string.mcl_setting_veroption_oldbeta),
-                    ctx.getString(R.string.mcl_setting_veroption_oldalpha)
+                    ctx.getString(R.string.mcl_setting_veroption_oldalpha),
+                    "Modded"
             };
-            mData = new List[]{Arrays.asList(mInstalledVersions), releaseList, snapshotList, betaList, alphaList};
+            mData = new List[]{Arrays.asList(mInstalledVersions), releaseList, snapshotList, betaList, alphaList, moddedList};
             mSnapshotListPosition = 2;
         }
     }

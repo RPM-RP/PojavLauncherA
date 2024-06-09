@@ -112,7 +112,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "net.kdt.pojavlaunch"
+        applicationId "git.artdeell.rplauncher"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode getDateSeconds()
@@ -128,9 +128,9 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue 'string', 'application_package', 'net.kdt.pojavlaunch.debug'
-            resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.debug'
-            resValue 'string', 'shareProviderAuthority', 'net.kdt.pojavlaunch.scoped.controlfolder.debug'
+            resValue 'string', 'application_package', 'git.artdeell.rplauncher.debug'
+            resValue 'string', 'storageProviderAuthorities', 'git.artdeell.rplauncher.gamefolder.debug'
+            resValue 'string', 'shareProviderAuthority', 'git.artdeell.rplauncher.controlfolder.debug'
         }
         proguard {
             initWith debug
@@ -145,8 +145,8 @@ android {
             // defaultConfig already set
             // multiDexEnabled = true
             // debuggable = true
-            resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder'
-            resValue 'string', 'application_package', 'net.kdt.pojavlaunch'
+            resValue 'string', 'storageProviderAuthorities', 'git.artdeell.rplauncher.gamefolder'
+            resValue 'string', 'application_package', 'git.artdeell.rplauncher'
         }
         gplay {
             initWith release
