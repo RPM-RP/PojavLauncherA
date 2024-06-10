@@ -14,10 +14,4 @@
     </style>
 
 
-    <style name="ThickDivider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/_1sdp</item>
-        <item name="android:background">?android:attr/listDivider</item>
-    </style>
-
 </resources>

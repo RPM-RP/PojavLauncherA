@@ -6,34 +6,23 @@
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
-    <string name="login_online_username_hint">E-mail ou nome de utilizador</string>
-    <string name="login_online_login_label">Iniciar sessão</string>
     <!-- Hint -->
     <string name="hint_control_mapping">"Toque no ícone de engrenagem central superior para abrir o menu de contexto ⚙\nToque num botão para personalizar: edite, redimensione, exclua ou personalize o seu atalho de teclado."</string>
     <!-- Warnings -->
-    <string name="warning_remove_account">Esta conta será removida!</string>
     <!-- AlertDialog title -->
     <string name="alerttitle_installmod">Seleciona um Instalador de mods</string>
     <!-- Error messages -->
     <string name="error_fatal">O PojavLauncher falhou inesperadamente</string>
-    <string name="error_no_version">Não existem versões!</string>
     <string name="error_show_more">Mostrar mais</string>
     <string name="error_show_less">Mostrar menos</string>
     <!-- Toast messages -->
     <string name="toast_permission_denied">A permissão de leitura/escrita no armazenamento é necessária!</string>
-    <string name="toast_optifine_success">Instalação completa com sucesso</string>
     <!--
     <string name="toast_3">Exit</string>
     -->
     <!-- MCLauncherActivity: Tabs -->
-    <string name="mcl_tab_wiki">Wiki</string>
     <!-- MCLauncherActivity: Account status -->
     <!-- MCLauncherActivity: Strings -->
-    <string name="mcl_launch_cleancache">A limpar os ficheiros em cache</string>
-    <string name="mcl_launch_downloading">A transferir %s</string>
-    <string name="mcl_launch_downloading_progress">"A transferir %s (%.2f MB / %.2f MB)"</string>
-    <string name="mcl_launch_download_assets">A preparar para transferir os recursos</string>
-    <string name="mcl_options">Opções</string>
     <string name="mcl_option_customcontrol">Controlos personalizados</string>
     <string name="mcl_setting_title_use_surface_view">Usar renderização de superfície alternada</string>
     <string name="mcl_setting_title_ignore_notch">Ignorar o entalhe</string>
@@ -44,30 +33,19 @@
     <string name="mcl_setting_subtitle_javaargs">Tem cuidado, isto pode fazer o jogo falhar se modificado sem conhecimento.</string>
     <string name="mcl_setting_category_renderer">Renderizador</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (todas as versões, rápido)</string>
-    <string name="mcl_setting_veroption_release">Oficial</string>
-    <string name="mcl_setting_veroption_snapshot">Snapshot</string>
-    <string name="mcl_setting_veroption_oldalpha">Alpha antiga</string>
-    <string name="mcl_setting_veroption_oldbeta">Beta antiga</string>
-    <string name="mcl_version_clone">Clonar</string>
     <!-- Global strings -->
-    <string name="global_edit">Editar</string>
     <string name="global_error">Erro</string>
     <string name="global_load">Carregar</string>
     <string name="global_name">Nome</string>
-    <string name="global_remove">Remover</string>
     <string name="global_clone">Clonar</string>
     <string name="global_restart">Reiniciar</string>
     <string name="global_save">Guardar</string>
     <string name="global_unpacking">A descompactar %s</string>
     <string name="global_error_field_empty">Este campo não pode estar vazio</string>
-    <string name="global_waiting">Aguarda</string>
-    <string name="global_select">Selecionar</string>
-    <string name="global_retry">Tentar outra vez</string>
     <string name="global_default">Padrão</string>
     <!-- MainActivity: strings -->
     <string name="mcn_exit_title">Aplicação/Jogo saiu com código %d, verifique latestlog.txt para mais detalhes.</string>
     <string name="mcn_exit_confirm">Tu tens a certeza que queres forçar o encerramento do jogo?</string>
-    <string name="mcn_check_fail_vulkan_support">O renderizador Zink(Vulkan) não é suportado neste dispositivo!</string>
     <!-- MainActivity: Control buttons -->
     <string name="control_chat">Chat</string>
     <string name="control_debug">Depuração</string>
@@ -112,9 +90,6 @@
     <string name="main_play">Jogar</string>
     <string name="autoram_info_msg">Memória definida para %d MB</string>
     <string name="mcl_setting_check_libraries">Verificar as bibliotecas depois de transferir</string>
-    <string name="dl_library_sha_fail">A biblioteca %s está danificada e irá ser transferida novamente</string>
-    <string name="dl_library_sha_unknown">A biblioteca %s não pôde ser verificada, vamos assumir que está utilizável</string>
-    <string name="dl_library_sha_pass">Biblioteca %s está bem e utilizável</string>
     <string name="mcl_disable_gestures">Desativar gestos</string>
     <string name="mcl_disable_gestures_subtitle">Desativa gestos, como segurar para quebrar blocos e tocar para colocar um bloco.</string>
     <string name="mcl_disable_swap_hand">Desativar toque duplo para trocar de mãos</string>
@@ -134,8 +109,6 @@
     <string name="multirt_nocompartiblert">Não foi possível encontrar uma Runtime do Java compatível. Esta versão requere Java %d ou superior.</string>
     <string name="multirt_nojava8rt">Não foi possível encontrar o Java 8. Para usar esta opção, tu precisas de instalar o Java 8.</string>
     <string name="multirt_delete_runtime">Eliminar runtime</string>
-    <string name="pvc_gameDirectory">Diretório do jogo</string>
-    <string name="pvc_jvmArgs">Argumentos JVM</string>
     <string name="preference_mouse_start_title">Iniciar com o rato virtual ligado</string>
     <string name="preference_video_title">Vídeo e renderizador</string>
     <string name="preference_control_title">Customização dos controlos</string>
@@ -147,15 +120,7 @@
     <string name="preference_gyro_invert_x_axis">Inverter eixo X</string>
     <string name="preference_gyro_invert_y_axis">Inverter eixo Y</string>
     <string name="preference_back_title">Voltar à tela anterior</string>
-    <string name="unnamed">Sem Nome</string>
-    <string name="profiles_latest_snapshot">Snapshot mais recente</string>
-    <string name="profiles_latest_release">Versão mais recente</string>
-    <string name="profiles_profile_name">Nome</string>
-    <string name="profiles_profile_version">Versão</string>
     <string name="global_delete">Eliminar</string>
-    <string name="pedit_java_runtime">Runtime do Java</string>
-    <string name="pedit_renderer">Renderizador</string>
     <string name="arc_capes_title">Capas da \'Comestica\'</string>
     <string name="arc_capes_desc">Habilitar capas da Cosmetica(antigamente Arc). Para mais informações por favor visite https://cosmetica.cc. Isto Requer OptiFine.</string>
-    <string name="of_dl_progress">A transferir %s</string>
 </resources>

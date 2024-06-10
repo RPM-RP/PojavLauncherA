@@ -6,13 +6,10 @@
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
-    <string name="login_online_username_hint">E-post või kasutajanimi</string>
-    <string name="login_online_login_label">Logi sisse</string>
     <!-- Hint -->
     <!-- Warnings -->
     <!-- AlertDialog title -->
     <!-- Error messages -->
-    <string name="error_no_version">Versioon puudub!</string>
     <string name="error_show_more">Kuva rohkem</string>
     <string name="error_show_less">Kuva vähem</string>
     <!-- Toast messages -->
@@ -22,7 +19,6 @@
     <!-- MCLauncherActivity: Tabs -->
     <!-- MCLauncherActivity: Account status -->
     <!-- MCLauncherActivity: Strings -->
-    <string name="mcl_options">Valikud</string>
     <string name="mcl_option_customcontrol">Kohandatud juhtnupud</string>
     <string name="mcl_setting_title_use_surface_view">Kasuta alternatiivset pinnarenderdust</string>
     <string name="mcl_setting_title_ignore_notch">Ignoreeri kulmu</string>
@@ -31,23 +27,15 @@
     <string name="mcl_setting_title_mousescale">Kursori suurus</string>
     <string name="mcl_setting_category_renderer">Renderdaja</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (kõik versioonid, kiire)</string>
-    <string name="mcl_setting_veroption_release">Väljalase</string>
-    <string name="mcl_setting_veroption_snapshot">Katsetus</string>
-    <string name="mcl_setting_veroption_oldalpha">Vana alfa</string>
-    <string name="mcl_setting_veroption_oldbeta">Vana beeta</string>
-    <string name="mcl_version_clone">Klooni</string>
     <!-- Global strings -->
-    <string name="global_edit">Muuda</string>
     <string name="global_error">Viga</string>
     <string name="global_load">Laadi</string>
     <string name="global_name">Nimi</string>
-    <string name="global_remove">Eemalda</string>
     <string name="global_clone">Klooni</string>
     <string name="global_restart">Taaskäivita</string>
     <string name="global_save">Salvesta</string>
     <string name="global_unpacking">%s lahtipakkimine</string>
     <string name="global_error_field_empty">See väli ei tohi olla tühi</string>
-    <string name="global_waiting">Ootamine</string>
     <string name="global_default">Vaikimisi</string>
     <!-- MainActivity: strings -->
     <!-- MainActivity: Control buttons -->
@@ -90,7 +78,6 @@
     <string name="multirt_title">Runtime-haldur</string>
     <string name="multirt_config_setdefault">Määra vaikimisi</string>
     <string name="multirt_config_setdefault_already">Vaikimisi</string>
-    <string name="pvc_jvmArgs">JVM argumendid</string>
     <string name="preference_mouse_start_title">Käivita lubatud virtuaalse hiirega</string>
     <string name="preference_video_title">Video ja renderdaja</string>
     <string name="preference_control_title">Juhtnuppude kohandamine</string>
@@ -99,22 +86,11 @@
     <string name="preference_sustained_performance_title">Jätkusuutliku jõudluse režiimi sisselülitamine</string>
     <string name="preference_category_virtual_mouse">Virtuaalne hiir</string>
     <string name="preference_back_title">Tagasi viimasele kuvale</string>
-    <string name="unnamed">Nimetu</string>
-    <string name="profiles_latest_snapshot">Viimatine katsetus</string>
-    <string name="profiles_latest_release">Viimatine väljalase</string>
-    <string name="profiles_profile_name">Nimi</string>
-    <string name="profiles_profile_version">Versioon</string>
     <string name="global_delete">Kustuta</string>
-    <string name="pedit_java_runtime">Java Runtime</string>
-    <string name="pedit_renderer">Renderdaja</string>
     <string name="arc_capes_title">Cosmetica keebid</string>
     <string name="arc_capes_desc">Lubab Cosmetica (endine Arc) keebid. Rohkema teabe saamiseks külasta https://cosmetica.cc. Nõuab OptiFine\'i.</string>
     <string name="notif_channel_name">Üldine</string>
     <string name="lazy_service_default_title">Pojav esiplaaniteenus</string>
     <string name="notification_terminate">Sundsulge</string>
     <string name="notification_game_runs">Mäng on käimas!</string>
-    <string name="folder_dialog_create">Loo</string>
-    <string name="main_login_done">Sisenemine õnnestus</string>
-    <string name="main_add_account">Lisa konto</string>
-    <string name="create_profile">Loo uus profiil</string>
 </resources>

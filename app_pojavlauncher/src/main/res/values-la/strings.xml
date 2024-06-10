@@ -6,11 +6,8 @@
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
-    <string name="login_online_username_hint">Email uel vos</string>
-    <string name="login_online_login_label">Login</string>
     <!-- Hint -->
     <!-- Warnings -->
-    <string name="warning_remove_account">Et ob hoc remotus!</string>
     <!-- AlertDialog title -->
     <!-- Error messages -->
     <string name="error_fatal">Pojav launcher crashed subito</string>

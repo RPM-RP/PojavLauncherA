@@ -6,34 +6,23 @@
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
-    <string name="login_online_username_hint">El. paštas arba slapyvardis</string>
-    <string name="login_online_login_label">Prisijungti</string>
     <!-- Hint -->
     <string name="hint_control_mapping">"Paspausk viršutini centrini krumpliarati kad atidaryti kontekstini meniu ⚙\nPasausk mygtuka kad pritaikyti: pakeisti, pakeisti dydį, ištrinti, arba pakeisti jo veiksma."</string>
     <!-- Warnings -->
-    <string name="warning_remove_account">Ši paskyra bus pašalinta!</string>
     <!-- AlertDialog title -->
     <string name="alerttitle_installmod">Pasirinkite modifikacijų įdiegimui</string>
     <!-- Error messages -->
     <string name="error_fatal">PojavLauncher netikėtai išsijungė arba užlužo</string>
-    <string name="error_no_version">Nėra versijos!</string>
     <string name="error_show_more">Rodyti daugiau</string>
     <string name="error_show_less">Rodyti mažiau</string>
     <!-- Toast messages -->
     <string name="toast_permission_denied">Skaitymo/rašymo atmintyje leidimas yra būtinas!</string>
-    <string name="toast_optifine_success">Instaliavimas sėkmingas</string>
     <!--
     <string name="toast_3">Exit</string>
     -->
     <!-- MCLauncherActivity: Tabs -->
-    <string name="mcl_tab_wiki">Wiki</string>
     <!-- MCLauncherActivity: Account status -->
     <!-- MCLauncherActivity: Strings -->
-    <string name="mcl_launch_cleancache">Valomi nereikalingi failai</string>
-    <string name="mcl_launch_downloading">Atsisiunčiama %s</string>
-    <string name="mcl_launch_downloading_progress">"Atsisiunčiama %s (%.2f MB / %.2f MB)"</string>
-    <string name="mcl_launch_download_assets">Rengiamasi atsisiųsti resursus</string>
-    <string name="mcl_options">Pasirinkimai</string>
     <string name="mcl_option_customcontrol">Kontrolės</string>
     <string name="mcl_setting_title_use_surface_view">Naudoti alternatyvų atvaizdų vaizdavimą</string>
     <string name="mcl_setting_title_ignore_notch">Ignoruoti kamerą</string>
@@ -44,25 +33,15 @@
     <string name="mcl_setting_subtitle_javaargs">Būkite atsargūs, tai gali paveikti žaidimą jei modifikuota be išmonės.</string>
     <string name="mcl_setting_category_renderer">Vaizdo generatorius</string>
     <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (visos versijos, greičiausias)</string>
-    <string name="mcl_setting_veroption_release">Leidimai</string>
-    <string name="mcl_setting_veroption_snapshot">Naujinimai</string>
-    <string name="mcl_setting_veroption_oldalpha">Alpha</string>
-    <string name="mcl_setting_veroption_oldbeta">Beta</string>
-    <string name="mcl_version_clone">Klonuoti</string>
     <!-- Global strings -->
-    <string name="global_edit">Redaguoti</string>
     <string name="global_error">Klaida</string>
     <string name="global_load">Įjungti</string>
     <string name="global_name">Pavadinimas</string>
-    <string name="global_remove">Pašalinti</string>
     <string name="global_clone">Klonuoti</string>
     <string name="global_restart">Perkrauti</string>
     <string name="global_save">Išsaugoti</string>
     <string name="global_unpacking">Išpakuojama %s</string>
     <string name="global_error_field_empty">Šis laukas negali būti tuščias</string>
-    <string name="global_waiting">Palaukite</string>
-    <string name="global_select">Pasirinkti</string>
-    <string name="global_retry">Hd</string>
     <string name="global_default">Numatytasis</string>
     <!-- MainActivity: strings -->
     <string name="mcn_exit_title">Applikacija išsijungė su kodu %d, patikrinkite latestlog.txt kad gautumėte detalių.</string>
@@ -117,9 +96,6 @@
     <string name="main_play">Žaisti</string>
     <string name="autoram_info_msg">Atmintis pakeista į %d MB</string>
     <string name="mcl_setting_check_libraries">Patikrinti depozitoriumo bibliotekas po atsisiuntimo</string>
-    <string name="dl_library_sha_fail">Depozitoriumo biblioteka %s yra sugedusi ir būs persiųsta</string>
-    <string name="dl_library_sha_unknown">Depozitoriumo biblioteka %s negali būti patikrinta, privaloma tikėti kad ji gera</string>
-    <string name="dl_library_sha_pass">Depozitoriumo biblioteka %s yra gera ir naudojama</string>
     <string name="mcl_disable_gestures">Išjungti gestus</string>
     <string name="mcl_disable_gestures_subtitle">Išjungti gestus, kaip prilaikyti, kad griautum bloką, ir paspausti, kad pastatytum bloką.</string>
     <string name="mcl_disable_swap_hand">Išjungti dukart bakstelėjimą kad apsikeisti rankomis</string>
@@ -139,8 +115,6 @@
     <string name="multirt_nocompartiblert">Nerasta tinkamos Java Runtine. Šiai versijai reikalinga Java %d arba naujesnė.</string>
     <string name="multirt_nojava8rt">Nerasta Java 8. Kad naudotumėte šią funkciją, naudokite Java 8.</string>
     <string name="multirt_delete_runtime">Ištrinti runtime</string>
-    <string name="pvc_gameDirectory">Žaidimo failų vieta</string>
-    <string name="pvc_jvmArgs">JVM argumentai</string>
     <string name="preference_mouse_start_title">Pradėti su virtualia įjungta</string>
     <string name="preference_video_title">Vaizdas</string>
     <string name="preference_control_title">Kontrolių redagavimas</string>
@@ -152,25 +126,10 @@
     <string name="preference_gyro_invert_x_axis">Invertuoti X ašį</string>
     <string name="preference_gyro_invert_y_axis">Invertuoti Y ašį</string>
     <string name="preference_back_title">Atgal į paskutinį ekraną</string>
-    <string name="unnamed">Be pavadinimo</string>
-    <string name="profiles_latest_snapshot">Naujausias Snapshotas</string>
-    <string name="profiles_latest_release">Naujausias Leidinys</string>
-    <string name="profiles_profile_name">Pavadinimas</string>
-    <string name="profiles_profile_version">Versija</string>
     <string name="global_delete">Ištrinti</string>
-    <string name="pedit_java_runtime">Java Runtime</string>
-    <string name="pedit_renderer">Vaizdo generatorius</string>
     <string name="arc_capes_title">\"Cosmetica\" apvalkalai</string>
     <string name="arc_capes_desc">Įjungia apvalkalus iš \"Cosmetica\" (anksčiau \"Arc\"). Daugiau informacijos rasite https://cosmetica.cc. Reikalingas OptiFine.</string>
     <string name="notif_channel_name">Pagrindinis</string>
     <string name="notification_terminate">Nutraukti</string>
     <string name="notification_game_runs">Žaidimas bėga!</string>
-    <string name="folder_dialog_create">Sukurti</string>
-    <string name="folder_dialog_insert_name">Įterpti aplankos pavadinimą</string>
-    <string name="folder_fragment_create">Sukurti aplanką</string>
-    <string name="main_add_account">Pridėti accounta</string>
-    <string name="xerr_unknown">Nežinomas Xbox Live API klaida %d</string>
-    <string name="xerr_no_account">Atrodo kad tu neturi Xbox Live accounta. Prašau prisijungti kartą į https://minecraft.net/ ir pabandyt dar kartą.</string>
-    <string name="xerr_not_available">Xbox Live nėra jūsų šalyje</string>
-    <string name="of_dl_progress">Atsisiunčiama %s</string>
 </resources>
