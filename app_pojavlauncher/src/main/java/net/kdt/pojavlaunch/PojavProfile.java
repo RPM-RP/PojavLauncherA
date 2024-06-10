@@ -30,20 +30,7 @@ public class PojavProfile {
         return name;
     }
 	
-	public static void setCurrentProfile(@NonNull Context ctx, @Nullable  Object obj) {
-		SharedPreferences.Editor pref = getPrefs(ctx).edit();
-		
-		try { if (obj instanceof String) {
-                String acc = (String) obj;
-				pref.putString(PROFILE_PREF_FILE, acc);
-                //MinecraftAccount.clearTempAccount();
-			} else if (obj == null) {
-				pref.putString(PROFILE_PREF_FILE, "");
-			} else {
-				throw new IllegalArgumentException("Profile must be String.class or null");
-			}
-		} finally {
-			pref.apply();
-		}
+	public static void setCurrentProfile(@NonNull Context ctx, String name) {
+		getPrefs(ctx).edit().putString(PROFILE_PREF_FILE, name != null ? name : "").apply();
 	}
 }

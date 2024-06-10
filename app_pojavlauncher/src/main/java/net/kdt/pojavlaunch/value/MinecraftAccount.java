@@ -8,6 +8,8 @@ import net.kdt.pojavlaunch.*;
 import net.kdt.pojavlaunch.utils.FileUtils;
 
 import java.io.*;
+import java.lang.ref.WeakReference;
+
 import com.google.gson.*;
 import android.graphics.Bitmap;
 import android.util.Base64;
@@ -19,6 +21,7 @@ import org.apache.commons.io.IOUtils;
 @SuppressWarnings("IOStreamConstructor")
 @Keep
 public class MinecraftAccount {
+    private static WeakReference<MinecraftAccount> mAccount;
     public String accessToken = "0"; // access token
     public String clientToken = "0"; // clientID: refresh and invalidate
     public String profileId = "00000000-0000-0000-0000-000000000000"; // profile UUID, for obtaining skin
@@ -66,32 +69,22 @@ public class MinecraftAccount {
     }
 
     public static MinecraftAccount load(String name) {
-        if(!accountExists(name)) return null;
-        try {
-            MinecraftAccount acc = parse(Tools.read(Tools.DIR_ACCOUNT_NEW + "/" + name + ".json"));
-            if (acc.accessToken == null) {
-                acc.accessToken = "0";
-            }
-            if (acc.clientToken == null) {
-                acc.clientToken = "0";
-            }
-            if (acc.profileId == null) {
-                acc.profileId = "00000000-0000-0000-0000-000000000000";
-            }
-            if (acc.username == null) {
-                acc.username = "0";
-            }
-            if (acc.selectedVersion == null) {
-                acc.selectedVersion = "1.7.10";
-            }
-            if (acc.msaRefreshToken == null) {
-                acc.msaRefreshToken = "0";
-            }
-            return acc;
-        } catch(IOException | JsonSyntaxException e) {
-            Log.e(MinecraftAccount.class.getName(), "Caught an exception while loading the profile",e);
-            return null;
+        // For the purposes of this project, we do not need a full-on account system. So we will generate
+        // a dummy account with the correctly set user name.
+        MinecraftAccount account;
+        if(mAccount == null || mAccount.get() == null) {
+            account = new MinecraftAccount();
+            account.accessToken = "0";
+            account.clientToken = "0";
+            account.profileId = "00000000-0000-0000-0000-000000000000";
+            account.selectedVersion = "Forge 1.20.4";
+            account.msaRefreshToken = "0";
+            mAccount = new WeakReference<>(account);
+        }else {
+            account = mAccount.get();
         }
+        account.username = name;
+        return account;
     }
 
     public Bitmap getSkinFace(){
@@ -118,9 +111,5 @@ public class MinecraftAccount {
 
     private static File getSkinFaceFile(String username) {
         return new File(Tools.DIR_CACHE, username + ".png");
-    }
-
-    private static boolean accountExists(String username){
-        return new File(Tools.DIR_ACCOUNT_NEW + "/" + username + ".json").exists();
     }
 }
