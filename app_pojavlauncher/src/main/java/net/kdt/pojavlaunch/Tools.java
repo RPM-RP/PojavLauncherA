@@ -57,6 +57,7 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.DateUtils;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
+import net.kdt.pojavlaunch.utils.HashGenerator;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.JSONUtils;
 import net.kdt.pojavlaunch.utils.OldVersionsUtils;
@@ -911,22 +912,18 @@ public final class Tools {
     }
 
 
-    public static boolean compareSHA1(File f, String sourceSHA) {
-        try {
-            String sha1_dst;
-            try (InputStream is = new FileInputStream(f)) {
-                sha1_dst = new String(Hex.encodeHex(org.apache.commons.codec.digest.DigestUtils.sha1(is)));
-            }
-            if(sourceSHA != null) {
-                return sha1_dst.equalsIgnoreCase(sourceSHA);
-            } else{
-                return true; // fake match
-            }
+    public static boolean compareHash(File file, String remoteHash, HashGenerator hashGenerator) {
+        String localHash;
+        try (InputStream fileStream = new FileInputStream(file)){
+            localHash = Hex.encodeHexString(hashGenerator.generate(fileStream));
         }catch (IOException e) {
-            Log.i("SHA1","Fake-matching a hash due to a read error",e);
+            Log.w("HashVerifier", "Unable to compute local hash, producing match", e);
             return true;
         }
+        return localHash.equalsIgnoreCase(remoteHash);
     }
+
+
 
     public static void ignoreNotch(boolean shouldIgnore, Activity ctx){
         if (SDK_INT >= P) {

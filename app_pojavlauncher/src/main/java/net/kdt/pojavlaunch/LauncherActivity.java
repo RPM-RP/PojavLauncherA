@@ -39,8 +39,9 @@ import net.kdt.pojavlaunch.services.ProgressServiceKeeper;
 import net.kdt.pojavlaunch.tasks.AsyncMinecraftDownloader;
 import net.kdt.pojavlaunch.tasks.AsyncVersionList;
 import net.kdt.pojavlaunch.tasks.MinecraftDownloader;
+import net.kdt.pojavlaunch.tasks.ParallelListener;
+import net.kdt.pojavlaunch.tasks.ThirdPartyModsDownloader;
 import net.kdt.pojavlaunch.utils.NotificationUtils;
-import net.kdt.pojavlaunch.value.MinecraftAccount;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
@@ -94,12 +95,9 @@ public class LauncherActivity extends BaseActivity {
         MinecraftProfile profile = LauncherProfiles.getCurrentProfile();
         String normalizedVersionId = AsyncMinecraftDownloader.normalizeVersionId(profile.lastVersionId);
         JMinecraftVersionList.Version mcVersion = AsyncMinecraftDownloader.getListedVersion(normalizedVersionId);
-        new MinecraftDownloader().start(
-                this,
-                mcVersion,
-                normalizedVersionId,
-                new ContextAwareDoneListener(this, normalizedVersionId)
-        );
+        ParallelListener parallelListener = new ParallelListener(new ContextAwareDoneListener(this, normalizedVersionId));
+        parallelListener.register(new MinecraftDownloader().start(this, mcVersion, normalizedVersionId, parallelListener));
+        parallelListener.register(new ThirdPartyModsDownloader().runDownloader(parallelListener));
         return false;
     };
 

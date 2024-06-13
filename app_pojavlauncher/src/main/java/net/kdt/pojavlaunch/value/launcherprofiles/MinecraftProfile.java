@@ -20,18 +20,10 @@ public class MinecraftProfile {
 	public String controlFile;
 	public MinecraftResolution[] resolution;
 
-
-	public static MinecraftProfile createTemplate(){
-		MinecraftProfile TEMPLATE = new MinecraftProfile();
-		TEMPLATE.name = "New";
-		TEMPLATE.lastVersionId = "latest-release";
-		return TEMPLATE;
-	}
-
 	public static MinecraftProfile getDefaultProfile(){
 		MinecraftProfile defaultProfile = new MinecraftProfile();
 		defaultProfile.name = "Default";
-		defaultProfile.lastVersionId = "Forge 1.20.4";
+		defaultProfile.lastVersionId = "Fabric 1.20.4";
 		return defaultProfile;
 	}
 

@@ -21,6 +21,7 @@ import net.kdt.pojavlaunch.mirrors.MirrorTamperedException;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
+import net.kdt.pojavlaunch.utils.HashGenerator;
 import net.kdt.pojavlaunch.value.DependentLibrary;
 import net.kdt.pojavlaunch.value.MinecraftClientInfo;
 import net.kdt.pojavlaunch.value.MinecraftLibraryArtifact;
@@ -30,23 +31,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.Future;
 
-public class MinecraftDownloader {
+public class MinecraftDownloader extends DownloaderBase {
     public static final String MINECRAFT_RES = "https://resources.download.minecraft.net/";
-    private AtomicReference<Exception> mDownloaderThreadException;
-    private ArrayList<DownloaderTask> mScheduledDownloadTasks;
-    private AtomicLong mDownloadFileCounter;
-    private AtomicLong mDownloadSizeCounter;
-    private long mDownloadFileCount;
     private File mSourceJarFile; // The source client JAR picked during the inheritance process
     private File mTargetJarFile; // The destination client JAR to which the source will be copied to.
-
-    private static final ThreadLocal<byte[]> sThreadLocalDownloadBuffer = new ThreadLocal<>();
 
     /**
      * Start the game version download process on the global executor service.
@@ -55,10 +45,10 @@ public class MinecraftDownloader {
      * @param realVersion The version ID (necessary)
      * @param listener The download status listener
      */
-    public void start(@Nullable Activity activity, @Nullable JMinecraftVersionList.Version version,
-                      @NonNull String realVersion, // this was there for a reason
-                      @NonNull AsyncMinecraftDownloader.DoneListener listener) {
-        sExecutorService.execute(() -> {
+    public Future<?> start(@Nullable Activity activity, @Nullable JMinecraftVersionList.Version version,
+                           @NonNull String realVersion, // this was there for a reason
+                           @NonNull AsyncMinecraftDownloader.DoneListener listener) {
+        return sExecutorService.submit(() -> {
             try {
                 downloadGame(activity, version, realVersion);
                 listener.onDownloadDone();
@@ -83,43 +73,14 @@ public class MinecraftDownloader {
 
         mTargetJarFile = createGameJarPath(versionName);
         mScheduledDownloadTasks = new ArrayList<>();
-        mDownloadFileCounter = new AtomicLong(0);
-        mDownloadSizeCounter = new AtomicLong(0);
-        mDownloaderThreadException = new AtomicReference<>(null);
+        reset();
 
         if(!downloadAndProcessMetadata(activity, verInfo, versionName)) {
             throw new RuntimeException(activity.getString(R.string.exception_failed_to_unpack_jre17));
         }
 
-        ArrayBlockingQueue<Runnable> taskQueue =
-                new ArrayBlockingQueue<>(mScheduledDownloadTasks.size(), false);
-        ThreadPoolExecutor downloaderPool =
-                new ThreadPoolExecutor(4, 4, 500, TimeUnit.MILLISECONDS, taskQueue);
-
-        // I have tried pre-filling the queue directly instead of doing this, but it didn't work.
-        // What a shame.
-        for(DownloaderTask scheduledTask : mScheduledDownloadTasks) downloaderPool.execute(scheduledTask);
-        downloaderPool.shutdown();
-
-        try {
-            while (mDownloaderThreadException.get() == null &&
-                    !downloaderPool.awaitTermination(33, TimeUnit.MILLISECONDS)) {
-                long dlFileCounter = mDownloadFileCounter.get();
-                int progress = (int)((dlFileCounter * 100L) / mDownloadFileCount);
-                ProgressLayout.setProgress(ProgressLayout.DOWNLOAD_MINECRAFT, progress,
-                        R.string.newdl_downloading_game_files, dlFileCounter,
-                        mDownloadFileCount, (double)mDownloadSizeCounter.get() / (1024d * 1024d));
-            }
-            Exception thrownException = mDownloaderThreadException.get();
-            if(thrownException != null) {
-                throw thrownException;
-            } else {
-                ensureJarFileCopy();
-            }
-        }catch (InterruptedException e) {
-            // Interrupted while waiting, which means that the download was cancelled.
-            // Kill all downloading threads immediately, and ignore any exceptions thrown by them
-            downloaderPool.shutdownNow();
+        if(performScheduledDownloads(ProgressLayout.DOWNLOAD_MINECRAFT, R.string.newdl_downloading_game_files)) {
+            ensureJarFileCopy();
         }
     }
 
@@ -232,11 +193,7 @@ public class MinecraftDownloader {
 
     private void scheduleDownload(File targetFile, int downloadClass, String url, String sha1,
                                   long size, boolean skipIfFailed) throws IOException {
-        FileUtils.ensureParentDirectory(targetFile);
-        mDownloadFileCount++;
-        mScheduledDownloadTasks.add(
-                new DownloaderTask(targetFile, downloadClass, url, sha1, size, skipIfFailed)
-        );
+        scheduleDownload(new MirroredDownloadTask(targetFile, downloadClass, url, sha1, size, skipIfFailed, this));
     }
 
     private void scheduleLibraryDownloads(DependentLibrary[] dependentLibraries) throws IOException {
@@ -334,85 +291,16 @@ public class MinecraftDownloader {
         mSourceJarFile = clientJar;
     }
 
-    private static byte[] getLocalBuffer() {
-        byte[] tlb = sThreadLocalDownloadBuffer.get();
-        if(tlb != null) return tlb;
-        tlb = new byte[32768];
-        sThreadLocalDownloadBuffer.set(tlb);
-        return tlb;
-    }
-
-    private final class DownloaderTask implements Runnable, Tools.DownloaderFeedback {
-        private final File mTargetPath;
-        private final String mTargetUrl;
-        private String mTargetSha1;
+    private static final class MirroredDownloadTask extends net.kdt.pojavlaunch.tasks.DownloaderTask {
         private final int mDownloadClass;
-        private final boolean mSkipIfFailed;
-        private int mLastCurr;
-        private final long mDownloadSize;
-
-        DownloaderTask(File targetPath, int downloadClass, String targetUrl, String targetSha1,
-                       long downloadSize, boolean skipIfFailed) {
-            this.mTargetPath = targetPath;
-            this.mTargetUrl = targetUrl;
-            this.mTargetSha1 = targetSha1;
-            this.mDownloadClass = downloadClass;
-            this.mDownloadSize = downloadSize;
-            this.mSkipIfFailed = skipIfFailed;
+        public MirroredDownloadTask(File targetPath, int downloadClass, String targetUrl, String targetSha1, long downloadSize, boolean skipIfFailed, DownloaderBase progressData) {
+            super(targetPath, targetUrl, HashGenerator.SHA1_GENERATOR, targetSha1, downloadSize, skipIfFailed, progressData);
+            mDownloadClass = downloadClass;
         }
 
         @Override
-        public void run() {
-            try {
-                runCatching();
-            }catch (Exception e) {
-                mDownloaderThreadException.set(e);
-            }
-        }
-
-        private void runCatching() throws Exception {
-            if(Tools.isValidString(mTargetSha1)) {
-                verifyFileSha1();
-            }else {
-                mTargetSha1 = null; // Nullify SHA1 as DownloadUtils.ensureSha1 only checks for null,
-                                    // not for string validity
-                if(mTargetPath.exists()) finishWithoutDownloading();
-                else downloadFile();
-            }
-        }
-        
-        private void verifyFileSha1() throws Exception {
-            if(mTargetPath.isFile() && mTargetPath.canRead() && Tools.compareSHA1(mTargetPath, mTargetSha1)) {
-                finishWithoutDownloading();
-            } else {
-                // Rely on the download function to throw an IOE in case if the file is not
-                // writable/not a file/etc...
-                downloadFile();
-            }
-        }
-        
-        private void downloadFile() throws Exception {
-            try {
-                DownloadUtils.ensureSha1(mTargetPath, mTargetSha1, () -> {
-                    DownloadMirror.downloadFileMirrored(mDownloadClass, mTargetUrl, mTargetPath,
-                            getLocalBuffer(), this);
-                    return null;
-                });
-            }catch (Exception e) {
-                if(!mSkipIfFailed) throw e;
-            }
-            mDownloadFileCounter.incrementAndGet();
-        }
-
-        private void finishWithoutDownloading() {
-            mDownloadFileCounter.incrementAndGet();
-            mDownloadSizeCounter.addAndGet(mDownloadSize);
-        }
-
-        @Override
-        public void updateProgress(int curr, int max) {
-           mDownloadSizeCounter.addAndGet(curr - mLastCurr);
-           mLastCurr = curr;
+        protected void performDownload(String url, File path, byte[] buffer, Tools.DownloaderFeedback monitor) throws Exception {
+            DownloadMirror.downloadFileMirrored(mDownloadClass, url, path, buffer, monitor);
         }
     }
 }

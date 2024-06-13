@@ -4,13 +4,21 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.io.*;
-import java.net.*;
-import java.nio.charset.*;
-import java.util.concurrent.Callable;
+import net.kdt.pojavlaunch.Tools;
 
-import net.kdt.pojavlaunch.*;
-import org.apache.commons.io.*;
+import org.apache.commons.io.IOUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.Callable;
 
 @SuppressWarnings("IOStreamConstructor")
 public class DownloadUtils {
@@ -131,27 +139,32 @@ public class DownloadUtils {
         }
     }
 
-    private static boolean verifyFile(File file, String sha1) {
-        return file.exists() && Tools.compareSHA1(file, sha1);
+    private static boolean verifyFile(File file, String hash, HashGenerator hashGenerator) {
+        return file.exists() && Tools.compareHash(file, hash, hashGenerator);
     }
 
-    public static <T> T ensureSha1(File outputFile, @Nullable String sha1, Callable<T> downloadFunction) throws IOException {
+    @SuppressWarnings({"UnusedReturnValue"})
+    public static <T> T ensureSha1(File outputFile, @Nullable String hash, Callable<T> downloadFunction) throws IOException {
+        return ensureHash(outputFile, hash, downloadFunction, HashGenerator.SHA1_GENERATOR);
+    }
+
+    public static <T> T ensureHash(File outputFile, @Nullable String hash, Callable<T> downloadFunction, HashGenerator hashGenerator) throws IOException {
         // Skip if needed
-        if(sha1 == null) {
+        if(hash == null) {
             // If the file exists and we don't know it's SHA1, don't try to redownload it.
             if(outputFile.exists()) return null;
             else return downloadFile(downloadFunction);
         }
 
         int attempts = 0;
-        boolean fileOkay = verifyFile(outputFile, sha1);
+        boolean fileOkay = verifyFile(outputFile, hash, hashGenerator);
         T result = null;
         while (attempts < 5 && !fileOkay){
             attempts++;
             downloadFile(downloadFunction);
-            fileOkay = verifyFile(outputFile, sha1);
+            fileOkay = verifyFile(outputFile, hash, hashGenerator);
         }
-        if(!fileOkay) throw new SHA1VerificationException("SHA1 verifcation failed after 5 download attempts");
+        if(!fileOkay) throw new SHA1VerificationException("Hash verifcation failed after 5 download attempts ("+outputFile.getName()+")");
         return result;
     }
 
