@@ -12,6 +12,7 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.utils.HashGenerator;
+import net.kdt.pojavlaunch.utils.MCOptionUtils;
 import net.kdt.pojavlaunch.value.ResourcepackInfo;
 import net.kdt.pojavlaunch.value.ThirdPartyConfig;
 import net.kdt.pojavlaunch.value.ThirdPartyMod;
@@ -68,8 +69,25 @@ public class ThirdPartyModsDownloader extends DownloaderBase {
                 mResourcepackLocation, resourcepackInfo.url, HashGenerator.SHA256_GENERATOR,
                 resourcepackInfo.hash, resourcepackInfo.size, false, this
         ));
+        insertResourcepack();
         performScheduledDownloads(ProgressLayout.INSTALL_MODPACK, R.string.moddl_downloading);
         ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
+    }
+
+    private void insertResourcepack() {
+        MCOptionUtils.load();
+        String resourcePacks = MCOptionUtils.get("resourcePacks");
+        if(resourcePacks.length() < 2) return;
+        int listBegin = resourcePacks.indexOf('[');
+        int listEnd = resourcePacks.lastIndexOf(']');
+        if(listBegin == -1 || listEnd == -1) return;
+        String packList = resourcePacks.substring(listBegin + 1, listEnd);
+        if(packList.contains("file/ServerResourcepack.zip")) return;
+        StringBuilder optionValueBuilder = new StringBuilder().append('[').append(packList);
+        if(!packList.isEmpty()) optionValueBuilder.append(',');
+        optionValueBuilder.append("\"file/ServerResourcepack.zip\"]");
+        MCOptionUtils.set("resourcePacks", optionValueBuilder.toString());
+        MCOptionUtils.save();
     }
 
     private void verifyMods(ThirdPartyMod[] modsList) throws IOException{
