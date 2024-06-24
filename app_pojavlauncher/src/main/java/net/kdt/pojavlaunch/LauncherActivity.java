@@ -5,7 +5,6 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,10 +12,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
@@ -45,8 +41,6 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
-import java.lang.ref.WeakReference;
-
 public class LauncherActivity extends BaseActivity {
     public static final String SETTING_FRAGMENT_TAG = "SETTINGS_FRAGMENT";
 
@@ -60,6 +54,8 @@ public class LauncherActivity extends BaseActivity {
     private ProgressLayout mProgressLayout;
     private ProgressServiceKeeper mProgressServiceKeeper;
     private NotificationManager mNotificationManager;
+    public PermissionHandler notificationPermissionHandler;
+    public PermissionHandler microphonePermissionHandler;
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -111,9 +107,6 @@ public class LauncherActivity extends BaseActivity {
         }
     };
 
-    private ActivityResultLauncher<String> mRequestNotificationPermissionLauncher;
-    private WeakReference<Runnable> mRequestNotificationPermissionRunnable;
-
     @Override
     protected boolean shouldIgnoreNotch() {
         return getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT || super.shouldIgnoreNotch();
@@ -135,20 +128,20 @@ public class LauncherActivity extends BaseActivity {
                     .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            notificationPermissionHandler = new PermissionHandler(this, Manifest.permission.POST_NOTIFICATIONS);
+            notificationPermissionHandler.reasoningTitle = R.string.notification_permission_dialog_title;
+            notificationPermissionHandler.reasoningText = R.string.notification_permission_dialog_text;
+            notificationPermissionHandler.checkPermission();
+        }
 
-        mRequestNotificationPermissionLauncher = registerForActivityResult(
-                new ActivityResultContracts.RequestPermission(),
-                isAllowed -> {
-                    if(!isAllowed) handleNoNotificationPermission();
-                    else {
-                        Runnable runnable = Tools.getWeakReference(mRequestNotificationPermissionRunnable);
-                        if(runnable != null) runnable.run();
-                    }
-                }
-        );
+        microphonePermissionHandler = new PermissionHandler(this, Manifest.permission.RECORD_AUDIO);
+        microphonePermissionHandler.reasoningTitle = R.string.notification_permission_dialog_title;
+        microphonePermissionHandler.reasoningText = R.string.microphone_permission_dialog_text;
+        microphonePermissionHandler.checkPermission();
+
         getWindow().setBackgroundDrawable(null);
         bindViews();
-        checkNotificationPermission();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         ProgressKeeper.addTaskCountListener(mDoubleLaunchPreventionListener);
         ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
@@ -237,51 +230,7 @@ public class LauncherActivity extends BaseActivity {
         return null;
     }
 
-    private void checkNotificationPermission() {
-        if(LauncherPreferences.PREF_SKIP_NOTIFICATION_PERMISSION_CHECK ||
-            checkForNotificationPermission()) {
-            return;
-        }
 
-        if(ActivityCompat.shouldShowRequestPermissionRationale(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS)) {
-            showNotificationPermissionReasoning();
-            return;
-        }
-        askForNotificationPermission(null);
-    }
-
-    private void showNotificationPermissionReasoning() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.notification_permission_dialog_title)
-                .setMessage(R.string.notification_permission_dialog_text)
-                .setPositiveButton(android.R.string.ok, (d, w) -> askForNotificationPermission(null))
-                .setNegativeButton(android.R.string.cancel, (d, w)-> handleNoNotificationPermission())
-                .show();
-    }
-
-    private void handleNoNotificationPermission() {
-        LauncherPreferences.PREF_SKIP_NOTIFICATION_PERMISSION_CHECK = true;
-        LauncherPreferences.DEFAULT_PREF.edit()
-                .putBoolean(LauncherPreferences.PREF_KEY_SKIP_NOTIFICATION_CHECK, true)
-                .apply();
-        Toast.makeText(this, R.string.notification_permission_toast, Toast.LENGTH_LONG).show();
-    }
-
-    public boolean checkForNotificationPermission() {
-        return Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_DENIED;
-    }
-
-    public void askForNotificationPermission(Runnable onSuccessRunnable) {
-        if(Build.VERSION.SDK_INT < 33) return;
-        if(onSuccessRunnable != null) {
-            mRequestNotificationPermissionRunnable = new WeakReference<>(onSuccessRunnable);
-        }
-        mRequestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
-    }
 
     /** Stuff all the view boilerplate here */
     private void bindViews(){

@@ -12,6 +12,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import net.kdt.pojavlaunch.LauncherActivity;
+import net.kdt.pojavlaunch.PermissionHandler;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
@@ -30,23 +31,27 @@ public class LauncherPreferenceFragment extends PreferenceFragmentCompat impleme
     @Override
     public void onCreatePreferences(Bundle b, String str) {
         addPreferencesFromResource(R.xml.pref_main);
-        setupNotificationRequestPreference();
+        setupPermissionRequests();
     }
 
-    private void setupNotificationRequestPreference() {
-        Preference mRequestNotificationPermissionPreference = requirePreference("notification_permission_request");
+    private void setupPermissionRequests() {
         Activity activity = getActivity();
-        if(activity instanceof LauncherActivity) {
-            LauncherActivity launcherActivity = (LauncherActivity)activity;
-            mRequestNotificationPermissionPreference.setVisible(!launcherActivity.checkForNotificationPermission());
-            mRequestNotificationPermissionPreference.setOnPreferenceClickListener(preference -> {
-                launcherActivity.askForNotificationPermission(()->mRequestNotificationPermissionPreference.setVisible(false));
-                return true;
-            });
-        }else{
-            mRequestNotificationPermissionPreference.setVisible(false);
-        }
+        if(!(activity instanceof LauncherActivity)) return;
+        LauncherActivity launcherActivity = (LauncherActivity)activity;
+        setupPermissionRequestPreference(launcherActivity.notificationPermissionHandler, "notification_permission_request");
+        setupPermissionRequestPreference(launcherActivity.microphonePermissionHandler, "microphone_permission_request");
     }
+
+    private void setupPermissionRequestPreference(PermissionHandler permissionHandler, String preferenceName) {
+        if(permissionHandler == null) return;
+        Preference requestPerefence = requirePreference(preferenceName);
+        requestPerefence.setVisible(!permissionHandler.checkForPermission());
+        requestPerefence.setOnPreferenceClickListener(preference -> {
+            permissionHandler.askForPermission(()->requestPerefence.setVisible(false));
+            return true;
+        });
+    }
+
 
     @Override
     public void onResume() {
