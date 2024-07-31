@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kdt.mcgui.MineButton xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/padding_between_buttons"
+    android:fontFamily="@font/user"
+    app:gradientColorTop="#0038FF"
+    app:gradientColorBottom="#0006A0"
+    app:drawInsetTop="5dp"
+    app:drawInsetBottom="5dp"
+    app:drawInsetLeft="5dp"
+    app:drawInsetRight="0dp"/>

@@ -4,14 +4,40 @@
     <style name="AppTheme" parent="@style/Theme.AppCompat.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:statusBarColor">@color/background_status_bar</item>
         <item name="android:navigationBarColor">@color/background_app</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-
         <item name="android:textSize">@dimen/_12ssp</item>
-
+        <item name="android:scrollViewStyle">@style/AppTheme.ScrollBar</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceFragment</item>
     </style>
-
-
+    <style name="AppTheme.PreferenceFragment" parent="@style/PreferenceThemeOverlay">
+        <item name="android:scrollViewStyle">@style/AppTheme.ScrollBar</item>
+        <item name="recyclerViewStyle">@style/AppTheme.RecyclerView</item>
+        <item name="fontFamily">@font/user</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="preferenceCategoryTitleTextColor">#0000FF</item>
+        <item name="colorAccent">#0000FF</item>
+    </style>
+    <style name="AppTheme.ScrollBar" parent="@android:style/Widget.DeviceDefault.ScrollView">
+        <item name="android:scrollbarSize">20dp</item>
+        <item name="android:scrollbarTrackVertical">@drawable/cust_scrollbar_body</item>
+        <item name="android:scrollbarTrackHorizontal">@drawable/cust_scrollbar_body</item>
+        <item name="android:scrollbarThumbVertical">@drawable/cust_scrollbar_thumb</item>
+        <item name="android:scrollbarThumbHorizontal">@drawable/cust_scrollbar_thumb</item>
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:fillViewport">true</item>
+        <item name="android:scrollbarStyle">insideInset</item>
+    </style>
+    <style name="AppTheme.RecyclerView" parent="">
+        <item name="android:scrollbarSize">20dp</item>
+        <item name="android:scrollbarTrackVertical">@drawable/cust_scrollbar_body</item>
+        <item name="android:scrollbarTrackHorizontal">@drawable/cust_scrollbar_body</item>
+        <item name="android:scrollbarThumbVertical">@drawable/cust_scrollbar_thumb</item>
+        <item name="android:scrollbarThumbHorizontal">@drawable/cust_scrollbar_thumb</item>
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarStyle">insideInset</item>
+    </style>
 </resources>

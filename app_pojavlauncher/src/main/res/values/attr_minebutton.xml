@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MineButton">
+        <attr name="gradientColorTop" format="color"/>
+        <attr name="gradientColorBottom" format="color"/>
+        <attr name="drawInsetLeft" format="dimension"/>
+        <attr name="drawInsetRight" format="dimension"/>
+        <attr name="drawInsetTop" format="dimension"/>
+        <attr name="drawInsetBottom" format="dimension"/>
+    </declare-styleable>
+</resources>

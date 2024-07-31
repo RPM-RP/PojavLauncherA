@@ -46,7 +46,7 @@ public class ThirdPartyModsDownloader extends DownloaderBase {
         ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.newdl_starting);
         reset();
         ThirdPartyMod[] modsList = readJson(MOD_LIST_URL, ThirdPartyMod[].class);
-        verifyMods(modsList);
+        //verifyMods(modsList);
         for(ThirdPartyMod thirdPartyMod : modsList) {
             scheduleDownload(new DownloaderTask(
                     new File(mModsFolder, thirdPartyMod.id + ".jar"),

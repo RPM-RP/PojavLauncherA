@@ -1,6 +1,7 @@
 package com.kdt.mcgui;
 
 import android.content.*;
+import android.content.res.TypedArray;
 import android.graphics.*;
 import android.util.*;
 
@@ -11,18 +12,21 @@ import net.kdt.pojavlaunch.R;
 public class MineButton extends androidx.appcompat.widget.AppCompatButton {
 	
 	public MineButton(Context ctx) {
-		this(ctx, null);
+		super(ctx);
+		init(null, 0);
 	}
 	
 	public MineButton(Context ctx, AttributeSet attrs) {
 		super(ctx, attrs);
-		init();
+		init(attrs, 0);
 	}
 
-	public void init() {
-		setTypeface(ResourcesCompat.getFont(getContext(), R.font.noto_sans_bold));
-		setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.mine_button_background, null));
-		setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen._13ssp));
+	public MineButton(Context ctx, AttributeSet attrs, int defStyle) {
+		super(ctx, attrs);
+		init(attrs, defStyle);
 	}
 
+	public void init(AttributeSet attributeSet, int defStyle) {
+		MineDrawable.apply(this, attributeSet, defStyle);
+	}
 }

@@ -131,7 +131,7 @@
     <string name="customctrl_export">Export controlmap</string>
 
     <string name="main_share_logs">Share log file</string>
-    <string name="main_play">Play</string>
+    <string name="main_play">▶Play</string>
     <string name="autoram_info_msg">Memory set to %d MB</string>
     <string name="mcl_setting_check_libraries">Check libraries after downloading</string>
     <string name="mcl_setting_check_libraries_subtitle">This option forces the launcher to check the library hash if it\'s available. Prevents broken downloads.</string>
@@ -244,11 +244,7 @@
     <string name="notif_error_occured">An error has occurred</string>
     <string name="notif_error_occured_desc">Click to see more details</string>
     <string name="dl_tampered_manifest_title">File verification warning</string>
-    <string name="dl_tampered_manifest"><![CDATA[The game version manifest on the mirror does not match the official Mojang version manifest, which means it may have been tampered with.<br/>
-        <b>This is not safe. Your personal information may be at risk if you continue.</b><br/>
-        If you still want to use the mirror, press \"Turn off manifest checks\" and start the download again.<br/>
-        If you want to use the official download source, press \"Switch to official site\" and start the download again.<br/>]]>
-    </string>
+    <string name="dl_tampered_manifest">"<![CDATA[The game version manifest on the mirror does not match the official Mojang version manifest, which means it may have been tampered with.<br/>         <b>This is not safe. Your personal information may be at risk if you continue.</b><br/>         If you still want to use the mirror, press \"Turn off manifest checks\" and start the download again.<br/>         If you want to use the official download source, press \"Switch to official site\" and start the download again.<br/>]]>     "</string>
     <string name="dl_turn_off_manifest_checks">Turn off manifest checks</string>
     <string name="dl_switch_to_official_site">Switch to official site</string>
     <string name="preference_download_source_title">Game download source</string>
@@ -284,4 +280,13 @@
     <string name="microphone_permission_dialog_text">Access to your microphone is required to use the in-game voice chat.</string>
     <string name="preference_ask_for_microphone_title">Allow microphone access</string>
     <string name="preference_ask_for_microphone_description">Click to re-request the microphone permission, required for in-game voice chat.</string>
+    <string name="hint_user_name">Enter your username</string>
+    <string name="acc_button_settings">Settings</string>
+    <string name="acc_button_laguage">Language</string>
+    <string name="pref_main">Main</string>
+    <string name="pref_video">Video</string>
+    <string name="pref_controls">Controls</string>
+    <string name="pref_java">Java</string>
+    <string name="pref_misc">Misc</string>
+    <string name="pref_experimental">Experimental</string>
 </resources>

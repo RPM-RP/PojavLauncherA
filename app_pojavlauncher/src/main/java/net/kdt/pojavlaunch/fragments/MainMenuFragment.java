@@ -13,12 +13,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import net.kdt.pojavlaunch.PojavProfile;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
+import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 
 public class MainMenuFragment extends Fragment {
     public static final String TAG = "MainMenuFragment";
@@ -32,14 +36,20 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mUserPrefs = view.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        Button mPlayButton = view.findViewById(R.id.play_button);
         mUserNameText = view.findViewById(R.id.username_textbar);
         mUserNameText.setText(mUserPrefs.getString("username", ""));
         mUserNameText.addTextChangedListener(new TextSaver());
-        mPlayButton.setOnClickListener(v -> {
+        Button playButton = view.findViewById(R.id.play_button);
+        playButton.setOnClickListener(v -> {
             String userName = mUserNameText.getText().toString();
             PojavProfile.setCurrentProfile(v.getContext(), userName);
             ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+        });
+        View settingsButton = view.findViewById(R.id.button_settings);
+        settingsButton.setOnClickListener(v -> {
+            FragmentActivity activity = getActivity();
+            if(activity == null) return;
+            Tools.swapFragment(activity, AdvancedPreferenceFragment.class, AdvancedPreferenceFragment.TAG, null);
         });
     }
 

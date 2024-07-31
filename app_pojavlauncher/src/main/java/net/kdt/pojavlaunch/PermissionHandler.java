@@ -21,7 +21,6 @@ import java.lang.ref.WeakReference;
 import android.os.Handler;
 
 public class PermissionHandler implements ActivityResultCallback<Boolean> {
-    private static final Handler mPermissionRequestHandler = new Handler(Looper.getMainLooper());
     private final AppCompatActivity mHostActivity;
     private final ActivityResultLauncher<String> mRequestPermissionLauncher;
     private WeakReference<Runnable> mRequestPermissionRunnable;

@@ -18,4 +18,5 @@
 
     <!-- Fragment padding -->
     <!-- Misc paddings -->
+    <dimen name="padding_between_buttons">15dp</dimen>
 </resources>
