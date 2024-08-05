@@ -101,18 +101,18 @@ public class LauncherActivity extends BaseActivity {
                     .addToBackStack("ROOT")
                     .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
         }
-
+        microphonePermissionHandler = new PermissionHandler(this, Manifest.permission.RECORD_AUDIO);
+        microphonePermissionHandler.reasoningTitle = R.string.notification_permission_dialog_title;
+        microphonePermissionHandler.reasoningText = R.string.microphone_permission_dialog_text;
+        PermissionHandler.PermissionResult mMicrophoneRequest = (unused)-> microphonePermissionHandler.checkPermission(null);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             notificationPermissionHandler = new PermissionHandler(this, Manifest.permission.POST_NOTIFICATIONS);
             notificationPermissionHandler.reasoningTitle = R.string.notification_permission_dialog_title;
             notificationPermissionHandler.reasoningText = R.string.notification_permission_dialog_text;
-            notificationPermissionHandler.checkPermission();
+            notificationPermissionHandler.checkPermission(mMicrophoneRequest);
+        }else {
+            mMicrophoneRequest.onPermissionRequestComplete(true);
         }
-
-        microphonePermissionHandler = new PermissionHandler(this, Manifest.permission.RECORD_AUDIO);
-        microphonePermissionHandler.reasoningTitle = R.string.notification_permission_dialog_title;
-        microphonePermissionHandler.reasoningText = R.string.microphone_permission_dialog_text;
-        microphonePermissionHandler.checkPermission();
 
         getWindow().setBackgroundDrawable(null);
         bindViews();

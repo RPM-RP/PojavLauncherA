@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.kdt.mcgui.MineButton;
@@ -23,8 +20,6 @@ import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceJavaFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceMiscellaneousFragment;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceVideoFragment;
 
-// It's a lie, this is not advanced at all. I'd say its kinda shit, even
-// But the release is in 24.5 hours so idc
 public class AdvancedPreferenceFragment extends Fragment implements View.OnClickListener {
     public static final String TAG = "AdvancedPreferenceFragment";
     private final ArrayMap<View, Class<? extends Fragment>> mButtonFragmentMap;

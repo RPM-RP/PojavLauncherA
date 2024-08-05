@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name part -->
-    <string name="app_name">PojavLauncher (Minecraft: Java Edition для Android)</string>
-    <string name="app_short_name">PojavLauncher</string>
+    <string name="app_name">Лаунчер для сервера RPM Roleplay</string>
+    <string name="app_short_name">RPM Launcher</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
@@ -12,7 +12,7 @@
     <!-- AlertDialog title -->
     <string name="alerttitle_installmod">Выберите установщик мода</string>
     <!-- Error messages -->
-    <string name="error_fatal">PojavLauncher был остановлен в результате сбоя</string>
+    <string name="error_fatal">RPM Launcher был остановлен в результате сбоя</string>
     <string name="error_show_more">Развернуть</string>
     <string name="error_show_less">Свернуть</string>
     <!-- Toast messages -->
@@ -168,7 +168,7 @@
     <string name="arc_capes_title">Плащи Cosmetica</string>
     <string name="arc_capes_desc">Включает плащи от Cosmetica (ранее Arc). Для получения дополнительной информации посетите https://cosmetica.cc. Требуется OptiFine.</string>
     <string name="notif_channel_name">Общее</string>
-    <string name="lazy_service_default_title">Активная служба Pojav</string>
+    <string name="lazy_service_default_title">Активная служба RPM</string>
     <string name="progresslayout_tasks_in_progress">Выполняется задач: %d</string>
     <string name="notification_terminate">Завершить</string>
     <string name="notification_game_runs">Игра запущена!</string>
@@ -181,7 +181,7 @@
     <string name="toast_turn_on_gyro">Сначала включите «Управление наклоном».</string>
     <string name="preference_gyro_sample_rate_title">Интервал опроса гироскопа</string>
     <string name="preference_gyro_sample_rate_description">Увеличьте, если управление наклоном снижает производительность.</string>
-    <string name="storage_required">PojavLauncher требует подключения к внешнему хранилищу. Переподключите его и перезапустите приложение.</string>
+    <string name="storage_required">RPM Launcher требует подключения к внешнему хранилищу. Переподключите его и перезапустите приложение.</string>
     <string name="mcl_setting_title_buttonallcaps">Заглавные буквы на кнопках</string>
     <string name="mcl_setting_subtitle_buttonallcaps">Отключите, если хотите использовать строчные буквы в своей раскладке управления.</string>
     <string name="preference_shader_dump_title">Сохранять дамп шейдеров</string>
@@ -224,7 +224,7 @@
     <string name="preference_category_miscellaneous">Другие настройки</string>
     <string name="preference_category_video">Настройки видео</string>
     <string name="notification_permission_dialog_title">Запрос разрешения</string>
-    <string name="notification_permission_dialog_text">Лаунчеру требуется разрешение на отправку уведомлений, чтобы предотвратить остановку игры/загрузки её данных при сворачивании приложения. Без этого разрешения Android может принудительно завершить работу PojavLauncher при переходе в фоновый режим.</string>
+    <string name="notification_permission_dialog_text">Лаунчеру требуется разрешение на отправку уведомлений, чтобы предотвратить остановку игры/загрузки её данных при сворачивании приложения. Без этого разрешения Android может принудительно завершить работу RPM Launcher при переходе в фоновый режим.</string>
     <string name="notification_permission_toast">Вы всегда сможете изменить это решение в настройках</string>
     <string name="preference_ask_for_notification_title">Разрешить уведомления</string>
     <string name="preference_ask_for_notification_description">Нажмите, чтобы ещё раз запросить разрешение на вывод уведомлений. Они нужны для правильной загрузки игры и сборок модов в фоне.</string>
@@ -240,11 +240,18 @@
     <string name="preference_ask_for_microphone_description">Нажмите, чтобы ещё раз запросить разрешение на доступ к микрофону. Это требуется для использования внутриигрового голосового чата.</string>
     <string name="hint_user_name">Введите ваш никнейм</string>
     <string name="acc_button_settings">Настройки</string>
-    <string name="acc_button_laguage">Язык</string>
+    <string name="acc_button_website">Веб-сайт</string>
     <string name="pref_main">Главная</string>
     <string name="pref_video">Видео</string>
     <string name="pref_controls">Управление</string>
     <string name="pref_java">Java</string>
     <string name="pref_misc">Другие</string>
     <string name="pref_experimental">Экспериментальные</string>
+    <string name="acc_button_youtube">Социальная сеть: YouTube</string>
+    <string name="acc_button_discord">Социальная сеть: Discord</string>
+    <string name="acc_button_vk">Социальная сеть: VK</string>
+    <string name="acc_button_tiktok">Социальная сеть: TikTok</string>
+    <string name="acc_logo">Логотип RPM Roleplay</string>
+    <string name="players_online">Общий онлайн:</string>
+
 </resources>

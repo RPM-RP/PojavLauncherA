@@ -69,7 +69,7 @@ public class PojavApplication extends Application {
 												originalJNIDirectory.lastIndexOf("/"))
 												.concat("/x86");
 			}
-			AsyncAssetManager.unpackRuntime(getAssets());
+			//AsyncAssetManager.unpackRuntime(getAssets());
 		} catch (Throwable throwable) {
 			Intent ferrorIntent = new Intent(this, FatalErrorActivity.class);
 			ferrorIntent.putExtra("throwable", throwable);

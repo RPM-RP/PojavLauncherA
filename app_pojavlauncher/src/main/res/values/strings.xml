@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name part -->
-    <string name="app_name">PojavLauncher (Minecraft: Java Edition for Android)</string>
-    <string name="app_short_name">PojavLauncher</string>
+    <string name="app_name">Launcher for the RPM Roleplay minecraft server</string>
+    <string name="app_short_name">RPM Launcher</string>
 
     <!-- Action bar part -->
 
@@ -19,7 +19,7 @@
     <string name="alerttitle_installmod">Select a mod installer</string>
 
     <!-- Error messages -->
-    <string name="error_fatal">PojavLauncher has unexpectedly crashed</string>
+    <string name="error_fatal">RPM Launcher has unexpectedly crashed</string>
     <string name="error_show_more">Show more</string>
     <string name="error_show_less">Show less</string>
 
@@ -200,7 +200,7 @@
     <string name="color_default_hex" translatable="false">FFFF0000</string>
     <string name="notif_channel_name">General</string>
     <string name="notif_channel_id" translatable="false">channel_id</string>
-    <string name="lazy_service_default_title">Pojav Foreground Service</string>
+    <string name="lazy_service_default_title">RPM Foreground Service</string>
     <string name="progresslayout_tasks_in_progress">%d tasks in progress</string>
     <string name="notification_terminate">Terminate</string>
     <string name="notification_game_runs">The game is running!</string>
@@ -213,7 +213,7 @@
     <string name="toast_turn_on_gyro">Enable gyroscope controls first to use this!</string>
     <string name="preference_gyro_sample_rate_title">Gyroscope sampling rate</string>
     <string name="preference_gyro_sample_rate_description">If you have performance issues with gyroscope controls, increase this.</string>
-    <string name="storage_required">PojavLauncher requires external storage to be attached. Please reconnect it and restart the app.</string>
+    <string name="storage_required">RPM Launcher requires external storage to be attached. Please reconnect it and restart the app.</string>
     <string name="mcl_setting_title_buttonallcaps">Only use capital letters in button labels</string>
     <string name="mcl_setting_subtitle_buttonallcaps">Disable this if you want to use lowercase letters in your controls.</string>
     <string name="preference_shader_dump_title">Enable shader dumping</string>
@@ -261,7 +261,7 @@
     <string name="preference_category_miscellaneous">Miscellaneous settings</string>
     <string name="preference_category_video">Video settings</string>
     <string name="notification_permission_dialog_title">Permission request</string>
-    <string name="notification_permission_dialog_text">PojavLauncher requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put PojavLauncher in background mode.</string>
+    <string name="notification_permission_dialog_text">RPM Launcher requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put RPM Launcher in background mode.</string>
     <string name="notification_permission_toast">You can always change your mind later by going into Settings</string>
     <string name="preference_ask_for_notification_title">Allow notifications</string>
     <string name="preference_ask_for_notification_description">Click to re-request the notification permission, required for game/modpack background downloads to work properly.</string>
@@ -282,11 +282,19 @@
     <string name="preference_ask_for_microphone_description">Click to re-request the microphone permission, required for in-game voice chat.</string>
     <string name="hint_user_name">Enter your username</string>
     <string name="acc_button_settings">Settings</string>
-    <string name="acc_button_laguage">Language</string>
+    <string name="acc_button_website">Website</string>
     <string name="pref_main">Main</string>
     <string name="pref_video">Video</string>
     <string name="pref_controls">Controls</string>
     <string name="pref_java">Java</string>
     <string name="pref_misc">Misc</string>
     <string name="pref_experimental">Experimental</string>
+    <string name="acc_button_youtube">Social network: YouTube</string>
+    <string name="acc_button_discord">Social network: Discord</string>
+    <string name="acc_button_vk">Social network: VK</string>
+    <string name="acc_button_tiktok">Social network: TikTok</string>
+    <string name="acc_logo">RPM Roleplay logo</string>
+    <string name="players_online">Players online:</string>
+    <string name="text_online_default" translatable="false">-- / --</string>
+    <string name="text_online_format" translatable="false">"<![CDATA[<font color=#64FF3E>%d</font> <font color=#FFFFFF>/</font> <font color=#64FF3E>%d</font>]]>"</string>
 </resources>

@@ -30,38 +30,44 @@
 		android:scaleType="fitEnd"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="@+id/guideline"
+		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/overlay1" />
 
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<ImageView
+		android:id="@+id/shadeBackgroundView"
 		android:layout_width="0dp"
-		android:layout_height="218dp"
-		android:layout_marginTop="-40dp"
+		android:layout_height="0dp"
+		android:layout_marginTop="-50dp"
+		android:layout_marginBottom="-50dp"
+		android:focusable="false"
+		android:scaleType="centerCrop"
+		app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
+		app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+		app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+		app:layout_constraintTop_toTopOf="@id/constraintLayout"
+		app:srcCompat="@drawable/top_bar_shade" />
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/constraintLayout"
+		android:layout_width="0dp"
+		android:layout_height="90dp"
+		app:layout_constraintBottom_toTopOf="@+id/linearLayout"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="0.110000014">
 
-
-		<ImageView
-			android:id="@+id/shadeBackgroundView"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:scaleType="centerCrop"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:srcCompat="@drawable/top_bar_shade" />
 
 		<ImageView
 			android:id="@+id/logo_image_view"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:contentDescription="@string/acc_logo"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@+id/guideline3"
-			app:layout_constraintHorizontal_bias="0.11"
-			app:layout_constraintStart_toStartOf="@+id/shadeBackgroundView"
+			app:layout_constraintHorizontal_bias="0.09"
+			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:srcCompat="@drawable/launcher_logo" />
 
@@ -70,7 +76,108 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
-			app:layout_constraintGuide_percent="0.5"  />
+			app:layout_constraintGuide_percent="0.5" />
+
+		<ImageButton
+			android:id="@+id/social_youtube"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:background="@android:color/transparent"
+			android:contentDescription="@string/acc_button_youtube"
+			android:paddingHorizontal="6dp"
+			android:scaleType="centerInside"
+			android:src="@drawable/youtube"
+			app:layout_constraintBottom_toBottomOf="@+id/social_tiktok"
+			app:layout_constraintEnd_toStartOf="@+id/social_discord"
+			app:layout_constraintTop_toTopOf="@+id/social_tiktok" />
+
+		<ImageButton
+			android:id="@+id/social_discord"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:background="@android:color/transparent"
+			android:contentDescription="@string/acc_button_discord"
+			android:paddingHorizontal="6dp"
+			android:scaleType="centerInside"
+			android:src="@drawable/discord"
+			app:layout_constraintBottom_toBottomOf="@+id/social_tiktok"
+			app:layout_constraintEnd_toStartOf="@+id/social_vk"
+			app:layout_constraintTop_toTopOf="@+id/social_tiktok" />
+
+		<ImageButton
+			android:id="@+id/social_vk"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:background="@android:color/transparent"
+			android:contentDescription="@string/acc_button_vk"
+			android:paddingHorizontal="6dp"
+			android:scaleType="centerInside"
+			android:src="@drawable/vk"
+			app:layout_constraintBottom_toBottomOf="@+id/social_tiktok"
+			app:layout_constraintEnd_toStartOf="@+id/social_tiktok"
+			app:layout_constraintTop_toTopOf="@+id/social_tiktok" />
+
+		<ImageButton
+			android:id="@+id/social_tiktok"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_marginEnd="24dp"
+			android:background="@android:color/transparent"
+			android:contentDescription="@string/acc_button_tiktok"
+			android:paddingHorizontal="6dp"
+			android:scaleType="centerInside"
+			android:src="@drawable/tiktok"
+			app:layout_constraintBottom_toBottomOf="@+id/logo_image_view"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/logo_image_view" />
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="24dp"
+			android:orientation="vertical"
+			app:layout_constraintBottom_toBottomOf="@+id/logo_image_view"
+			app:layout_constraintEnd_toStartOf="@+id/guideline3"
+			app:layout_constraintHorizontal_bias="0.18"
+			app:layout_constraintStart_toEndOf="@+id/logo_image_view"
+			app:layout_constraintTop_toTopOf="@+id/logo_image_view">
+
+			<TextView
+				android:id="@+id/online_total_label"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:fontFamily="@font/user"
+				android:text="@string/players_online"
+				android:textAllCaps="true"
+				android:textColor="@android:color/white"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toStartOf="parent"/>
+
+			<TextView
+				android:id="@+id/online_total_view"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:fontFamily="@font/user"
+				android:text="@string/text_online_default"
+				android:textAllCaps="true"
+				app:layout_constraintTop_toBottomOf="@id/online_total_label"
+				app:layout_constraintStart_toStartOf="parent"/>
+
+			<!-- I am also surprised that you can set view height in sp. Very convenient, though -->
+			<ImageView
+				android:id="@+id/online_icon"
+				android:layout_width="0dp"
+				android:layout_height="14sp"
+				android:src="@drawable/online_icon"
+				android:scaleType="fitStart"
+				android:layout_marginStart="6dp"
+				android:visibility="gone"
+				app:layout_constraintTop_toTopOf="@id/online_total_view"
+				app:layout_constraintBottom_toBottomOf="@id/online_total_view"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@id/online_total_view"/>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 	<androidx.constraintlayout.widget.Guideline
@@ -84,7 +191,7 @@
 		android:id="@+id/linearLayout"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginHorizontal="25dp"
+		android:layout_marginHorizontal="20dp"
 		android:gravity="center"
 
 		android:orientation="vertical"
@@ -92,15 +199,15 @@
 		app:layout_constraintEnd_toStartOf="@+id/guideline"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.75">
+		app:layout_constraintVertical_bias="0.65">
 
 		<com.kdt.mcgui.MineEditText
 			android:id="@+id/username_textbar"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="60dp"
 			android:layout_gravity="center"
 			android:ems="10"
-			android:fontFamily="@font/user"
+			android:fontFamily="@font/minecraft"
 			android:gravity="center"
 			android:hint="@string/hint_user_name"
 			android:inputType="text"
@@ -109,7 +216,8 @@
 			android:textAlignment="center"
 			android:textAllCaps="false"
 			android:textColorHint="#939393"
-			android:textSize="14sp"
+			android:textSize="18sp"
+			android:elevation="100dp"
 			app:drawInsetBottom="10dp"
 			app:drawInsetLeft="10dp"
 			app:drawInsetRight="10dp"
@@ -117,51 +225,61 @@
 			app:gradientColorBottom="#BBBBBB"
 			app:gradientColorTop="#D9D9D9" />
 
-		<com.kdt.mcgui.MineButton
-			android:id="@+id/play_button"
-			android:layout_width="match_parent"
-			android:layout_height="63dp"
-			android:layout_marginTop="20dp"
-			android:fontFamily="@font/user"
-			android:text="@string/main_play"
-			android:textAllCaps="true"
-
-			app:autoSizeTextType="uniform"
-			app:drawInsetBottom="10dp"
-			app:drawInsetLeft="10dp"
-			app:drawInsetRight="10dp"
-			app:drawInsetTop="10dp"
-			app:gradientColorBottom="#0006A0"
-			app:gradientColorTop="#0038FF" />
-
 		<LinearLayout
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_marginTop="20dp"
 			android:orientation="horizontal">
 
+			<com.kdt.mcgui.MineButton
+				android:id="@+id/play_button"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_marginEnd="5dp"
+				android:layout_weight="1"
+				android:fontFamily="@font/user"
+				android:text="@string/main_play"
+				android:textAllCaps="true"
+				android:maxLines="1"
+				android:elevation="10dp"
+
+				app:autoSizeTextType="uniform"
+				app:drawInsetBottom="8dp"
+				app:drawInsetLeft="8dp"
+				app:drawInsetRight="8dp"
+				app:drawInsetTop="8dp"
+				app:gradientColorBottom="#0006A0"
+				app:gradientColorTop="#0038FF" />
+
 			<com.kdt.mcgui.MineImageButton
 				android:id="@+id/button_settings"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:layout_marginStart="5dp"
 				android:layout_marginEnd="5dp"
-				app:drawInsetBottom="10dp"
-				app:drawInsetLeft="10dp"
-				app:drawInsetRight="10dp"
-				app:drawInsetTop="10dp"
+				android:contentDescription="@string/acc_button_settings"
+				android:scaleType="fitCenter"
+				android:elevation="10dp"
+				app:drawInsetBottom="8dp"
+				app:drawInsetLeft="8dp"
+				app:drawInsetRight="8dp"
+				app:drawInsetTop="8dp"
 				app:gradientColorBottom="#4B4B4B"
 				app:gradientColorTop="#7B7B7B"
 				app:srcCompat="@drawable/icon_settings" />
 
 			<com.kdt.mcgui.MineImageButton
-				android:id="@+id/button_language"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:id="@+id/button_website"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
 				android:layout_marginStart="5dp"
-				app:drawInsetBottom="10dp"
-				app:drawInsetLeft="10dp"
-				app:drawInsetRight="10dp"
-				app:drawInsetTop="10dp"
+				android:contentDescription="@string/acc_button_website"
+				android:scaleType="fitCenter"
+				android:elevation="10dp"
+				app:drawInsetBottom="8dp"
+				app:drawInsetLeft="8dp"
+				app:drawInsetRight="8dp"
+				app:drawInsetTop="8dp"
 				app:gradientColorBottom="#0067A0"
 				app:gradientColorTop="#1AC8FF"
 				app:srcCompat="@drawable/icon_lang" />

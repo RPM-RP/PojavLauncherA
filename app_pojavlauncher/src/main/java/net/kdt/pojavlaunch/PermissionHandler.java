@@ -1,10 +1,8 @@
 package net.kdt.pojavlaunch;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Looper;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -15,15 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import net.kdt.pojavlaunch.prefs.LauncherPreferences;
-
 import java.lang.ref.WeakReference;
-import android.os.Handler;
 
 public class PermissionHandler implements ActivityResultCallback<Boolean> {
     private final AppCompatActivity mHostActivity;
     private final ActivityResultLauncher<String> mRequestPermissionLauncher;
-    private WeakReference<Runnable> mRequestPermissionRunnable;
+    private WeakReference<PermissionResult> mPermissionResultRequest;
     private final String mPermissionIdentifier;
     private final SharedPreferences mPermissionSkipPrefs;
     public int reasoningTitle;
@@ -41,31 +36,35 @@ public class PermissionHandler implements ActivityResultCallback<Boolean> {
         return mPermissionSkipPrefs.getBoolean(mPermissionIdentifier, false);
     }
 
-    private void setSkipChecks(boolean skip) {
+    public void setSkipChecks(boolean skip) {
         mPermissionSkipPrefs.edit().putBoolean(mPermissionIdentifier, skip).apply();
     }
 
-    public void checkPermission() {
-        if(shouldSkipChecks() ||
-                checkForPermission()) {
+    public void checkPermission(PermissionResult result) {
+        boolean hasPermission = checkForPermission();
+        if(shouldSkipChecks() || hasPermission) {
+            if(result != null) result.onPermissionRequestComplete(hasPermission);
             return;
         }
 
         if(ActivityCompat.shouldShowRequestPermissionRationale(
                 mHostActivity,
                 mPermissionIdentifier)) {
-            showPermissionReasoning();
+            showPermissionReasoning(result);
             return;
         }
-        askForPermission(null);
+        askForPermission(result);
     }
 
-    private void showPermissionReasoning() {
+    private void showPermissionReasoning(PermissionResult permissionResult) {
         new AlertDialog.Builder(mHostActivity)
                 .setTitle(reasoningTitle)
                 .setMessage(reasoningText)
-                .setPositiveButton(android.R.string.ok, (d, w) -> askForPermission(null))
-                .setNegativeButton(android.R.string.cancel, (d, w)-> handleNoPermission())
+                .setPositiveButton(android.R.string.ok, (d, w) -> askForPermission(permissionResult))
+                .setNegativeButton(android.R.string.cancel, (d, w)-> {
+                    if(permissionResult != null) permissionResult.onPermissionRequestComplete(false);
+                    handleNoPermission();
+                })
                 .show();
     }
 
@@ -78,19 +77,21 @@ public class PermissionHandler implements ActivityResultCallback<Boolean> {
         return ContextCompat.checkSelfPermission(mHostActivity, mPermissionIdentifier) != PackageManager.PERMISSION_DENIED;
     }
 
-    public void askForPermission(Runnable onSuccessRunnable) {
-        if(onSuccessRunnable != null) {
-            mRequestPermissionRunnable = new WeakReference<>(onSuccessRunnable);
+    public void askForPermission(PermissionResult permissionResult) {
+        if(permissionResult != null) {
+            mPermissionResultRequest = new WeakReference<>(permissionResult);
         }
         mRequestPermissionLauncher.launch(mPermissionIdentifier);
     }
 
+
     @Override
     public void onActivityResult(Boolean isPermissionAllowed) {
         if(!isPermissionAllowed) handleNoPermission();
-        else {
-            Runnable runnable = Tools.getWeakReference(mRequestPermissionRunnable);
-            if(runnable != null) runnable.run();
-        }
+        PermissionResult permissionResult = Tools.getWeakReference(mPermissionResultRequest);
+        if(permissionResult != null) permissionResult.onPermissionRequestComplete(isPermissionAllowed);
+    }
+    public interface PermissionResult {
+        void onPermissionRequestComplete(boolean success);
     }
 }

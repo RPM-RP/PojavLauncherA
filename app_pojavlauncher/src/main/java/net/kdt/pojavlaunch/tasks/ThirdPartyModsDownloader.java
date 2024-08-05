@@ -4,6 +4,7 @@ import static net.kdt.pojavlaunch.PojavApplication.sExecutorService;
 
 import android.util.Log;
 
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.kdt.mcgui.ProgressLayout;
 
@@ -46,7 +47,7 @@ public class ThirdPartyModsDownloader extends DownloaderBase {
         ProgressLayout.setProgress(ProgressLayout.INSTALL_MODPACK, 0, R.string.newdl_starting);
         reset();
         ThirdPartyMod[] modsList = readJson(MOD_LIST_URL, ThirdPartyMod[].class);
-        //verifyMods(modsList);
+        verifyMods(modsList);
         for(ThirdPartyMod thirdPartyMod : modsList) {
             scheduleDownload(new DownloaderTask(
                     new File(mModsFolder, thirdPartyMod.id + ".jar"),
@@ -113,12 +114,11 @@ public class ThirdPartyModsDownloader extends DownloaderBase {
     }
 
     private static <T> T readJson(String url, Class<T> type) throws IOException, DownloadUtils.ParseException {
-        return DownloadUtils.downloadStringCached(url, type.getCanonicalName(), input -> {
-            try {
-                return Tools.GLOBAL_GSON.fromJson(input, type);
-            }catch (JsonSyntaxException e) {
-                throw new DownloadUtils.ParseException(e);
-            }
-        });
+        String content = DownloadUtils.downloadString(url);
+        try {
+            return Tools.GLOBAL_GSON.fromJson(content, type);
+        }catch (JsonParseException e) {
+            throw new DownloadUtils.ParseException(e);
+        }
     }
 }

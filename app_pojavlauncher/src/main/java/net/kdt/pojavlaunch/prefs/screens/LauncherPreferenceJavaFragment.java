@@ -42,16 +42,6 @@ public class LauncherPreferenceJavaFragment extends LauncherPreferenceFragment {
         seek7.setMax(maxRAM);
         seek7.setValue(ramAllocation);
         seek7.setSuffix(" MB");
-
-        EditTextPreference editJVMArgs = findPreference("javaArgs");
-        if (editJVMArgs != null) {
-            editJVMArgs.setOnBindEditTextListener(TextView::setSingleLine);
-        }
-
-        requirePreference("install_jre").setOnPreferenceClickListener(preference->{
-            openMultiRTDialog();
-            return true;
-        });
     }
 
     private void openMultiRTDialog() {
