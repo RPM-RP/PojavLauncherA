@@ -35,7 +35,7 @@ public class ZipValidator {
         }
     }
 
-    private void internalValidate(ZipFile zipFile) throws IOException, InterruptedException{
+    private void internalValidate(ZipFile zipFile) throws IOException, InterruptedException {
         Enumeration<? extends ZipEntry> zipEntries = zipFile.entries();
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         while(zipEntries.hasMoreElements()) {

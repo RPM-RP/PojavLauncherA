@@ -54,7 +54,7 @@ public class DownloaderTask implements Runnable, Tools.DownloaderFeedback {
         if(targetPath.isFile() && targetPath.canRead() && Tools.compareHash(targetPath, mTargetHash, mHashGenerator)) {
             finishWithoutDownloading();
         } else {
-            Log.i("DownloaderTask", "Downloading" + targetPath.getName());
+            Log.i("DownloaderTask", "Downloading " + targetPath.getName());
             // Rely on the download function to throw an IOE in case if the file is not
             // writable/not a file/etc...
             downloadFile();

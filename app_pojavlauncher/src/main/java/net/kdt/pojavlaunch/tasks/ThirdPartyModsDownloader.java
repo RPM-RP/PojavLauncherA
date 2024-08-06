@@ -37,6 +37,7 @@ public class ThirdPartyModsDownloader extends DownloaderBase {
                 download();
                 doneListener.onDownloadDone();
             }catch (Exception e) {
+                Log.e("TPModsDownloader", "Failed", e);
                 ProgressLayout.clearProgress(ProgressLayout.INSTALL_MODPACK);
                 doneListener.onDownloadFailed(e);
             }
@@ -91,7 +92,7 @@ public class ThirdPartyModsDownloader extends DownloaderBase {
         MCOptionUtils.save();
     }
 
-    private void verifyMods(ThirdPartyMod[] modsList) throws IOException{
+    private void verifyMods(ThirdPartyMod[] modsList) throws IOException {
         List<String> modsFileNames = new ArrayList<>(modsList.length);
         for(ThirdPartyMod thirdPartyMod: modsList) {
             modsFileNames.add(thirdPartyMod.id + ".jar");
