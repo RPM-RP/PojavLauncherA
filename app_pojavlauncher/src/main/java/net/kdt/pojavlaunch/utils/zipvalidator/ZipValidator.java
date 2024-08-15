@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 public class ZipValidator {
     private final List<ThreadData> sThreadDatas = Collections.synchronizedList(new ArrayList<>(2));
+    private boolean mCreationLocked = false;
     private final ThreadLocal<ThreadData> sThreadData = new ThreadLocal<>();
     final AtomicReference<IOException> validatorException = new AtomicReference<>();
     private final File mFileForValidation;
@@ -29,8 +30,10 @@ public class ZipValidator {
         try(ZipFile zipFile = new ZipFile(mFileForValidation)) {
             internalValidate(zipFile);
         }finally {
-            for (ThreadData threadData : sThreadDatas) {
-                threadData.close();
+            synchronized (sThreadDatas) {
+                for (ThreadData threadData : sThreadDatas) {
+                    threadData.close();
+                }
             }
         }
     }
@@ -48,6 +51,9 @@ public class ZipValidator {
             validatorException = this.validatorException.get();
             if(validatorException != null) break;
         }
+        synchronized (sThreadDatas){
+            mCreationLocked = true;
+        }
         if(validatorException != null) {
             executorService.shutdownNow();
             throw validatorException;
@@ -55,11 +61,15 @@ public class ZipValidator {
     }
 
     ThreadData getThreadData() throws IOException {
-        ThreadData threadData = sThreadData.get();
-        if(threadData != null) return threadData;
-        threadData = new ThreadData(mFileForValidation);
-        sThreadDatas.add(threadData);
-        return threadData;
+        synchronized (sThreadDatas) {
+            if(mCreationLocked) return null;
+            ThreadData threadData = sThreadData.get();
+            if(threadData != null) return threadData;
+            threadData = new ThreadData(mFileForValidation);
+            sThreadDatas.add(threadData);
+            sThreadData.set(threadData);
+            return threadData;
+        }
     }
 
 }

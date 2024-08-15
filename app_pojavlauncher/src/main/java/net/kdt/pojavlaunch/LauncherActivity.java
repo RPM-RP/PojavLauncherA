@@ -196,7 +196,6 @@ public class LauncherActivity extends BaseActivity {
     }
 
 
-
     /** Stuff all the view boilerplate here */
     private void bindViews(){
         mFragmentView = findViewById(R.id.container_fragment);

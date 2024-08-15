@@ -95,6 +95,7 @@ public final class Tools {
     public  static final float BYTE_TO_MB = 1024 * 1024;
     public static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());
     public static final String SERVER_IP = "play.rpmserver.com";
+    public static final String GAME_VERSION = "Fabric_1.20.4";
     public static String APP_NAME = "PojavLauncher";
 
     public static final Gson GLOBAL_GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -133,7 +134,7 @@ public final class Tools {
         if(SDK_INT >= 29) {
             return ctx.getExternalFilesDir(null);
         }else{
-            return new File(Environment.getExternalStorageDirectory(),"games/PojavLauncher");
+            return new File(Environment.getExternalStorageDirectory(),"games/RPMLauncher");
         }
     }
 
@@ -914,11 +915,43 @@ public final class Tools {
         void updateProgress(int curr, int max);
     }
 
+    private static char getHexDigit(int value) {
+        switch (value) {
+            case 0: return '0';
+            case 1: return '1';
+            case 2: return '2';
+            case 3: return '3';
+            case 4: return '4';
+            case 5: return '5';
+            case 6: return '6';
+            case 7: return '7';
+            case 8: return '8';
+            case 9: return '9';
+            case 10: return 'A';
+            case 11: return 'B';
+            case 12: return 'C';
+            case 13: return 'D';
+            case 14: return 'E';
+            case 15: return 'F';
+        }
+        return 'N';
+    }
+
+    private static String encodeHexString(byte[] data) {
+        StringBuilder stringBuilder = new StringBuilder(data.length * 2);
+        for(byte dataByte : data) {
+            int highDigit = (dataByte & 0xF0) >> 4;
+            int lowDigit = dataByte & 0xf;
+            stringBuilder.append(getHexDigit(highDigit)).append(getHexDigit(lowDigit));
+        }
+        return stringBuilder.toString();
+    }
 
     public static boolean compareHash(File file, String remoteHash, HashGenerator hashGenerator) {
         String localHash;
         try (InputStream fileStream = new FileInputStream(file)){
-            localHash = Hex.encodeHexString(hashGenerator.generate(fileStream));
+            byte[] hash = hashGenerator.generate(fileStream);
+            localHash = encodeHexString(hash);
         }catch (IOException e) {
             Log.w("HashVerifier", "Unable to compute local hash, producing match", e);
             return true;

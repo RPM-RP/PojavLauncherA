@@ -16,7 +16,7 @@
         0,
         0
       ],
-      "name": "Keyboard",
+      "name": "⌨️",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -39,7 +39,7 @@
         0,
         0
       ],
-      "name": "GUI",
+      "name": "Кнопки",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -62,7 +62,7 @@
         0,
         0
       ],
-      "name": "Mouse",
+      "name": "Мышь",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -85,7 +85,7 @@
         0,
         0
       ],
-      "name": "Debug",
+      "name": "Отладка",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -108,7 +108,7 @@
         0,
         0
       ],
-      "name": "Chat",
+      "name": "Чат",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -131,7 +131,7 @@
         0,
         0
       ],
-      "name": "Tab",
+      "name": "Игроки",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -154,7 +154,7 @@
         0,
         0
       ],
-      "name": "3rd",
+      "name": "3-е лицо",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -177,7 +177,7 @@
         0,
         0
       ],
-      "name": "Inv",
+      "name": "Инв",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -189,8 +189,8 @@
       "cornerRadius": 0.0,
       "displayInGame": true,
       "displayInMenu": true,
-      "dynamicX": "${right} - ${margin} * 2 - ${width}",
-      "dynamicY": "${bottom} - ${margin} * 2 - ${height}",
+      "dynamicX": "0.910141 * ${screen_width} - ${width}",
+      "dynamicY": "0.80046296 * ${screen_height} - ${height}",
       "height": 49.81818,
       "isSwipeable": false,
       "isToggle": false,
@@ -212,8 +212,8 @@
       "cornerRadius": 0.0,
       "displayInGame": true,
       "displayInMenu": true,
-      "dynamicX": "(${screen_width} - (px(49.81818) / 100.0 * ${preferred_scale})) - ${margin} * 2 - (px(49.81818) / 100.0 * ${preferred_scale}) - (px(49.81818) / 100.0 * ${preferred_scale}) - ${margin} - ${width} - ${margin}",
-      "dynamicY": "(${screen_height} - (px(49.81818) /100.0 * ${preferred_scale})) - ${margin} * 2 - (px(49.81818) /100.0 * ${preferred_scale}) - (px(49.81818) /100.0 * ${preferred_scale}) - ${margin}",
+      "dynamicX": "0.910141 * ${screen_width} - (px(49.81818) / 100.0 * ${preferred_scale}) - (px(465.45456) / 100.0 * ${preferred_scale}) - ${margin} - (px(49.81818) / 100.0 * ${preferred_scale}) - ${margin} - (px(185.45454) / 100.0 * ${preferred_scale}) - ${margin} + (px(185.45454) / 100.0 * ${preferred_scale}) + ${margin}",
+      "dynamicY": "0.80046296 * ${screen_height} - (px(49.81818) /100.0 * ${preferred_scale}) + (px(49.81818) /100.0 * ${preferred_scale}) + ${margin} + (px(49.81818) /100.0 * ${preferred_scale}) - (px(94.90909) /100.0 * ${preferred_scale}) - (px(80.36364) /100.0 * ${preferred_scale}) - ${margin} + (px(80.36364) /100.0 * ${preferred_scale}) + ${margin}",
       "height": 49.81818,
       "isSwipeable": false,
       "isToggle": false,
@@ -223,7 +223,7 @@
         0,
         0
       ],
-      "name": "SEC",
+      "name": "ПКМ",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -235,8 +235,8 @@
       "cornerRadius": 0.0,
       "displayInGame": true,
       "displayInMenu": true,
-      "dynamicX": "(${screen_width} - (px(49.81818) / 100.0 * ${preferred_scale})) - ${margin} * 2 - (px(49.81818) / 100.0 * ${preferred_scale}) - (px(49.81818) / 100.0 * ${preferred_scale}) - ${margin}",
-      "dynamicY": "(${screen_height} - (px(49.81818) /100.0 * ${preferred_scale})) - ${margin} * 2 - (px(49.81818) /100.0 * ${preferred_scale}) - (px(49.81818) /100.0 * ${preferred_scale}) - ${margin} - ${height} - ${margin}",
+      "dynamicX": "0.910141 * ${screen_width} - (px(49.81818) / 100.0 * ${preferred_scale}) - (px(49.81818) / 100.0 * ${preferred_scale}) - ${margin} - ${width} - ${margin}",
+      "dynamicY": "0.80046296 * ${screen_height} - (px(49.81818) /100.0 * ${preferred_scale})",
       "height": 49.81818,
       "isSwipeable": false,
       "isToggle": false,
@@ -246,7 +246,7 @@
         0,
         0
       ],
-      "name": "PRI",
+      "name": "ЛКМ",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
@@ -258,13 +258,13 @@
       "cornerRadius": 0.0,
       "displayInGame": true,
       "displayInMenu": true,
-      "dynamicX": "(${screen_width} - (px(49.81818) / 100.0 * ${preferred_scale})) - ${margin} * 2 - (px(49.81818) / 100.0 * ${preferred_scale}) - (px(49.81818) / 100.0 * ${preferred_scale}) - ${margin} + (px(49.81818) / 100.0 * ${preferred_scale}) + ${margin}",
-      "dynamicY": "(${screen_height} - (px(49.81818) /100.0 * ${preferred_scale})) - ${margin} * 2 - (px(49.81818) /100.0 * ${preferred_scale}) - (px(49.81818) /100.0 * ${preferred_scale}) - ${margin} - (px(49.81818) /100.0 * ${preferred_scale}) - ${margin} - ${height} - ${margin}",
+      "dynamicX": "0.7849241 * ${screen_width} - (px(49.81818) / 100.0 * ${preferred_scale}) + (px(49.81818) / 100.0 * ${preferred_scale}) + ${margin} + (px(49.81818) / 100.0 * ${preferred_scale}) + ${margin}",
+      "dynamicY": "0.80046296 * ${screen_height} - (px(49.81818) /100.0 * ${preferred_scale}) - (px(49.81818) /100.0 * ${preferred_scale}) - ${margin} - ${height} - ${margin}",
       "height": 49.81818,
       "isSwipeable": false,
       "isToggle": false,
       "keycodes": [
-        86,
+        342,
         0,
         0,
         0
@@ -282,7 +282,7 @@
       "displayInGame": true,
       "displayInMenu": true,
       "dynamicX": "${margin}",
-      "dynamicY": "${margin} + (px(29.818182) /100.0 * ${preferred_scale}) + ${margin} + (px(29.818182) /100.0 * ${preferred_scale}) + ${margin} + (px(29.818182) /100.0 * ${preferred_scale}) + ${margin} + (px(29.818182) /100.0 * ${preferred_scale}) + ${margin}",
+      "dynamicY": "${margin} + (px(29.818182) /100.0 * ${preferred_scale}) + ${margin} + (px(29.818182) /100.0 * ${preferred_scale}) + ${margin}",
       "height": 29.818182,
       "isSwipeable": false,
       "isToggle": false,
@@ -292,26 +292,49 @@
         0,
         0
       ],
-      "name": "VC setup",
+      "name": "⚙️🎙️",
       "opacity": 1.0,
       "passThruEnabled": false,
       "strokeColor": -1,
       "strokeWidth": 0.0,
       "width": 80.0
+    },
+    {
+      "bgColor": 1291845632,
+      "cornerRadius": 0.0,
+      "displayInGame": true,
+      "displayInMenu": true,
+      "dynamicX": "0.910141 * ${screen_width} - (px(49.81818) / 100.0 * ${preferred_scale}) - (px(465.45456) / 100.0 * ${preferred_scale}) - ${margin} - (px(49.81818) / 100.0 * ${preferred_scale}) - ${margin}",
+      "dynamicY": "0.80046296 * ${screen_height} - (px(49.81818) /100.0 * ${preferred_scale}) + (px(49.81818) /100.0 * ${preferred_scale}) + ${margin} + (px(49.81818) /100.0 * ${preferred_scale}) - (px(94.90909) /100.0 * ${preferred_scale}) - ${height} - ${margin}",
+      "height": 49.81818,
+      "isSwipeable": false,
+      "isToggle": true,
+      "keycodes": [
+        340,
+        0,
+        0,
+        0
+      ],
+      "name": "⬇️",
+      "opacity": 1.0,
+      "passThruEnabled": false,
+      "strokeColor": -1,
+      "strokeWidth": 0.0,
+      "width": 49.81818
     }
   ],
   "mDrawerDataList": [],
   "mJoystickDataList": [
     {
       "absolute": false,
-      "forwardLock": true,
+      "forwardLock": false,
       "bgColor": 1291845632,
       "cornerRadius": 0.0,
       "displayInGame": true,
       "displayInMenu": true,
-      "dynamicX": "0.0 * ${screen_width}",
-      "dynamicY": "1.0 * ${screen_height} - ${height}",
-      "height": 193.45454,
+      "dynamicX": "0.910141 * ${screen_width} - (px(49.81818) / 100.0 * ${preferred_scale}) - (px(465.45456) / 100.0 * ${preferred_scale}) - ${margin} - (px(49.81818) / 100.0 * ${preferred_scale}) - ${margin} - ${width} - ${margin}",
+      "dynamicY": "0.80046296 * ${screen_height} - (px(49.81818) /100.0 * ${preferred_scale}) + (px(49.81818) /100.0 * ${preferred_scale}) + ${margin} + (px(49.81818) /100.0 * ${preferred_scale}) - (px(94.90909) /100.0 * ${preferred_scale}) - (px(94.90909) /100.0 * ${preferred_scale}) - ${margin}",
+      "height": 191.63637,
       "isSwipeable": false,
       "isToggle": false,
       "keycodes": [
@@ -325,7 +348,7 @@
       "passThruEnabled": false,
       "strokeColor": -1,
       "strokeWidth": 0.0,
-      "width": 174.18182
+      "width": 185.45454
     }
   ],
   "scaledAt": 100.0,

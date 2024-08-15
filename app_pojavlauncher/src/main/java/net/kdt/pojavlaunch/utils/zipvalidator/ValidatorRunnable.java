@@ -36,6 +36,7 @@ public class ValidatorRunnable implements Runnable {
     public void run() {
         try {
             mThreadData = mParentValidator.getThreadData();
+            if(mThreadData == null) return;
             long crc = mZipEntry.getCrc();
             long size = mZipEntry.getSize();
             validate(crc, size, mThreadData.zipFile.getInputStream(mZipEntry));

@@ -253,5 +253,5 @@
     <string name="acc_button_tiktok">Социальная сеть: TikTok</string>
     <string name="acc_logo">Логотип RPM Roleplay</string>
     <string name="players_online">Общий онлайн:</string>
-
+    <string name="username_incorrect">Пожалуйста, выберите другой ник</string>
 </resources>

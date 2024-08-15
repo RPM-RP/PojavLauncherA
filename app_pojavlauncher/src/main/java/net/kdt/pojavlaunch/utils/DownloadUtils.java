@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import net.kdt.pojavlaunch.Tools;
-import net.kdt.pojavlaunch.utils.zipvalidator.ZipValidator;
 
 import org.apache.commons.io.IOUtils;
 
@@ -15,13 +14,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
-import java.util.zip.ZipException;
 
 @SuppressWarnings("IOStreamConstructor")
 public class DownloadUtils {
@@ -144,28 +141,10 @@ public class DownloadUtils {
 
     private static boolean verifyFile(File file, String hash, HashGenerator hashGenerator) throws IOException{
         boolean fileExists = file.exists();
-        if(hash == null && isZipFile(file)) {
-            return fileExists && verifyZipFile(file);
+        if(hash == null && ZipUtils.isValidatableZip(file)) {
+            return fileExists && ZipUtils.validateFile(file);
         }
         return fileExists && Tools.compareHash(file, hash, hashGenerator);
-    }
-
-    private static boolean isZipFile(File file) {
-        String fileName = file.getName();
-        return fileName.endsWith(".jar") || fileName.endsWith(".zip");
-    }
-
-    private static boolean verifyZipFile(File file) throws IOException{
-        ZipValidator zipValidator = new ZipValidator(file);
-        try {
-            zipValidator.validate();
-            return true;
-        }catch (InterruptedException e) {
-            IOException ioexception = new InterruptedIOException("Rethrown InterruptedException as IO exception");
-            ioexception.initCause(e);
-            throw ioexception;
-        }catch (ZipException ignored) {} // Try not to cause too much fuss if it's an actual validation error
-        return false;
     }
 
     @SuppressWarnings({"UnusedReturnValue"})
@@ -178,7 +157,7 @@ public class DownloadUtils {
         if(hash == null) {
             // If the file exists and we don't know it's SHA1, don't try to redownload it.
             // Unless it's a zip, which we can validate locally
-            if(outputFile.exists() && !isZipFile(outputFile)) return null;
+            if(outputFile.exists() && !ZipUtils.isValidatableZip(outputFile)) return null;
             else return downloadFile(downloadFunction);
         }
 
@@ -189,9 +168,7 @@ public class DownloadUtils {
             attempts++;
             downloadFile(downloadFunction);
             fileOkay = verifyFile(outputFile, hash, hashGenerator);
-            Log.i("DU", "Download attempt "+attempts + " result: "+fileOkay);
         }
-        Log.i("DU", "Complete, attempts: "+attempts+" okay: "+fileOkay);
         if(!fileOkay) throw new SHA1VerificationException("Hash verifcation failed after 5 download attempts ("+outputFile.getName()+")");
         return result;
     }

@@ -5,6 +5,7 @@ import android.util.Log;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.HashGenerator;
+import net.kdt.pojavlaunch.utils.ZipUtils;
 
 import java.io.File;
 
@@ -42,11 +43,22 @@ public class DownloaderTask implements Runnable, Tools.DownloaderFeedback {
     private void runCatching() throws Exception {
         if(Tools.isValidString(mTargetHash)) {
             verifyFileHash();
-        }else {
+        } else if(ZipUtils.isValidatableZip(targetPath)) {
+            verifyFileZip();
+        } else {
             mTargetHash = null; // Nullify SHA1 as DownloadUtils.ensureSha1 only checks for null,
             // not for string validity
             if(targetPath.exists()) finishWithoutDownloading();
             else downloadFile();
+        }
+    }
+
+    private void verifyFileZip() throws Exception {
+        if(targetPath.isFile() && targetPath.canRead() && ZipUtils.validateFile(targetPath)) {
+            finishWithoutDownloading();
+        }else {
+            Log.i("DownloaderTask", "Downloading (ZV) " + targetPath.getName());
+            downloadFile();
         }
     }
 

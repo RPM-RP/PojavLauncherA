@@ -1,14 +1,18 @@
 package net.kdt.pojavlaunch.utils;
 
+import net.kdt.pojavlaunch.utils.zipvalidator.ZipValidator;
+
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 public class ZipUtils {
@@ -51,5 +55,37 @@ public class ZipUtils {
                 IOUtils.copy(inputStream, outputStream);
             }
         }
+    }
+
+    /**
+     * Check if {@code file} is a file that could be validated with the {@code validateFile} function.
+     * Note that this only checks the file name.
+     * @param file file for checking
+     * @return whether it's a file that could be validated
+     */
+    public static boolean isValidatableZip(File file) {
+        // It is our job to perform validation, so we need to check via the file extension.
+        // The beginning of the file may be corrupted and not contain a ZIP header.
+        String fileName = file.getName();
+        return fileName.endsWith(".jar") || fileName.endsWith(".zip");
+    }
+
+    /**
+     * Validate a ZIP file by checking each file against the CRC32 checksum.
+     * @param file the target ZIP file for validation
+     * @return whether or not the file passed validation
+     * @throws IOException if an I/O error occured during validation
+     */
+    public static boolean validateFile(File file) throws IOException{
+        ZipValidator validator = new ZipValidator(file);
+        try {
+            validator.validate();
+            return true;
+        }catch (InterruptedException e) {
+            IOException exception = new InterruptedIOException();
+            exception.initCause(e);
+            throw exception;
+        }catch (ZipException ignored) {}
+        return false;
     }
 }

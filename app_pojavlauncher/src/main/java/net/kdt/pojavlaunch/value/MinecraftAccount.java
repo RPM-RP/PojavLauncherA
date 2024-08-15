@@ -3,6 +3,8 @@ package net.kdt.pojavlaunch.value;
 
 import androidx.annotation.Keep;
 
+import net.kdt.pojavlaunch.Tools;
+
 import java.lang.ref.WeakReference;
 
 @Keep
@@ -25,7 +27,7 @@ public class MinecraftAccount {
             account.accessToken = "0";
             account.clientToken = "0";
             account.profileId = "00000000-0000-0000-0000-000000000000";
-            account.selectedVersion = "Fabric 1.20.4";
+            account.selectedVersion = Tools.GAME_VERSION;
             account.msaRefreshToken = "0";
             mAccount = new WeakReference<>(account);
         }else {

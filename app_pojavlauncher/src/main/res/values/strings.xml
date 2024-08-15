@@ -297,4 +297,5 @@
     <string name="players_online">Players online:</string>
     <string name="text_online_default" translatable="false">-- / --</string>
     <string name="text_online_format" translatable="false">"<![CDATA[<font color=#64FF3E>%d</font> <font color=#FFFFFF>/</font> <font color=#64FF3E>%d</font>]]>"</string>
+    <string name="username_incorrect">Please select a different username</string>
 </resources>

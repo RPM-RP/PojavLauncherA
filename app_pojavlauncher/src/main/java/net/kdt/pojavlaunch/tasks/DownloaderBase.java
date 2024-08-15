@@ -41,8 +41,7 @@ public class DownloaderBase {
         downloaderPool.shutdown();
 
         try {
-            Exception thrownException;
-            while ((thrownException = downloaderThreadException.get()) == null &&
+            while (downloaderThreadException.get() == null &&
                     !downloaderPool.awaitTermination(33, TimeUnit.MILLISECONDS)) {
                 long dlFileCounter = fileCounter.get();
                 int progress = (int)((dlFileCounter * 100L) / mDownloadFileCount);
@@ -50,6 +49,8 @@ public class DownloaderBase {
                         formatString, dlFileCounter,
                         mDownloadFileCount, (double)sizeCounter.get() / (1024d * 1024d));
             }
+            // Read the exception here separately to ensure that we get the latest info from the downloader thread(s)
+            Exception thrownException = downloaderThreadException.get();
             if(thrownException != null) {
                 throw thrownException;
             }

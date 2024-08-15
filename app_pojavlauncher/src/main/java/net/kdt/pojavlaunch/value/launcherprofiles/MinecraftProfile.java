@@ -2,6 +2,8 @@ package net.kdt.pojavlaunch.value.launcherprofiles;
 
 import androidx.annotation.Keep;
 
+import net.kdt.pojavlaunch.Tools;
+
 @Keep
 public class MinecraftProfile {
 
@@ -23,7 +25,7 @@ public class MinecraftProfile {
 	public static MinecraftProfile getDefaultProfile(){
 		MinecraftProfile defaultProfile = new MinecraftProfile();
 		defaultProfile.name = "Default";
-		defaultProfile.lastVersionId = "Fabric 1.20.4";
+		defaultProfile.lastVersionId = Tools.GAME_VERSION;
 		return defaultProfile;
 	}
 

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,6 +68,11 @@ public class MainMenuFragment extends Fragment {
         Button playButton = view.findViewById(R.id.play_button);
         playButton.setOnClickListener(v -> {
             String userName = mUserNameText.getText().toString();
+            userName = userName.trim();
+            if(!userName.matches("^[a-zA-Z0-9_]*$")) {
+                Toast.makeText(mUserNameText.getContext(), R.string.username_incorrect, Toast.LENGTH_LONG).show();
+                return;
+            }
             PojavProfile.setCurrentProfile(v.getContext(), userName);
             ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
         });
@@ -156,6 +162,7 @@ public class MainMenuFragment extends Fragment {
         @Override
         public void run() {
             String userName = mUserNameText.getText().toString();
+            userName = userName.trim();
             mUserPrefs.edit().putString("username", userName).apply();
         }
     }
