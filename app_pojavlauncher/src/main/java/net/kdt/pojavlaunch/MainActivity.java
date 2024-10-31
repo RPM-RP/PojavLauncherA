@@ -13,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -37,6 +38,7 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -141,20 +143,37 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         bindService(gameServiceIntent, this, 0);
     }
 
-    private void hideLoadingView(View loadingView) {
-        ViewGroup parent = (ViewGroup) loadingView.getParent();
-        parent.removeView(loadingView);
+    private void hideLoadingView() {
+        View container = findViewById(R.id.layout_pre_loading_view_container);
+        if(container == null) return;
+        ViewGroup parent = (ViewGroup) container.getParent();
+        parent.removeView(container);
     }
 
     private void configureLoadingView() {
-        View loadingView = findViewById(R.id.layout_pre_loading_view);
+        VideoView loadingView = findViewById(R.id.layout_pre_loading_view);
         if(loadingView == null) return;
         if(CallbackBridge.nativeFramesRendered()) {
-            hideLoadingView(loadingView);
+            hideLoadingView();
             return;
         }
+        Uri videoUri = new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .authority(getPackageName())
+                .appendPath(Integer.toString(R.raw.rpm_mobile_loading))
+                .build();
+        loadingView.setVideoURI(videoUri);
+        loadingView.setOnErrorListener((mp, what, extra) ->{
+            Log.e("LoadingMediaPlayer", "Media error: "+what+ " "+extra);
+            hideLoadingView();
+            return true;
+        });
+        loadingView.setOnCompletionListener((mp -> {
+            mp.seekTo(12*1000);
+        }));
+        loadingView.start();
         CallbackBridge.nativeSetFirstFrameCallback(()->{
-            runOnUiThread(()->hideLoadingView(loadingView));
+            runOnUiThread(this::hideLoadingView);
         });
     }
 

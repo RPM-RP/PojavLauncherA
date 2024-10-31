@@ -57,12 +57,22 @@
 				android:layout_height="0px"/>
 
 		</net.kdt.pojavlaunch.customcontrols.ControlLayout>
-
-		<ImageView
-			android:id="@+id/layout_pre_loading_view"
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/layout_pre_loading_view_container"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			app:srcCompat="@drawable/ic_setting_sign_in_background" />
+			android:background="#FFFFFFFF">
+			<VideoView
+				android:id="@+id/layout_pre_loading_view"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintDimensionRatio="16:9"/>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
 
 		<com.kdt.LoggerView
 			android:id="@+id/mainLoggerView"

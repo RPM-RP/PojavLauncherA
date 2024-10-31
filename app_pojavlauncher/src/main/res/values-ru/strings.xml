@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name part -->
-    <string name="app_name">Лаунчер для сервера RPM Roleplay</string>
-    <string name="app_short_name">RPM Launcher</string>
+    <string name="app_name">Мобильный лаунчер RPM Roleplay</string>
+    <string name="app_short_name">RPM Mobile</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
     <!-- Login strings -->
