@@ -239,7 +239,24 @@ EXTERNAL_API void pojavSetWindowHint(int hint, int value) {
     }
 }
 
+static void callFirstFrameCallback() {
+    if(pojav_environ->firstFrameCallbackRunnable == NULL) return;
+    JNIEnv *dalvikEnv; bool detach = false;
+    jint egetenv = (*pojav_environ->dalvikJavaVMPtr)->GetEnv(pojav_environ->dalvikJavaVMPtr, (void**)&dalvikEnv, JNI_VERSION_1_4);
+    if(egetenv == JNI_EDETACHED) {
+        (*pojav_environ->dalvikJavaVMPtr)->AttachCurrentThread(pojav_environ->dalvikJavaVMPtr, &dalvikEnv, NULL);
+        detach = true;
+    }
+
+    (*dalvikEnv)->CallVoidMethod(dalvikEnv, pojav_environ->firstFrameCallbackRunnable, pojav_environ->method_Runnable_run);
+    if(detach) (*pojav_environ->dalvikJavaVMPtr)->DetachCurrentThread(pojav_environ->dalvikJavaVMPtr);
+}
+
 EXTERNAL_API void pojavSwapBuffers() {
+    if(!pojav_environ->framesRendered) {
+        callFirstFrameCallback();
+        pojav_environ->framesRendered = true;
+    }
     br_swap_buffers();
 }
 
@@ -269,3 +286,20 @@ EXTERNAL_API void pojavSwapInterval(int interval) {
     br_swap_interval(interval);
 }
 
+JNIEXPORT void JNICALL
+Java_org_lwjgl_glfw_CallbackBridge_nativeSetFirstFrameCallback(JNIEnv *env, jclass clazz,
+                                                               jobject callback) {
+    if(callback == NULL) {
+        pojav_environ->firstFrameCallbackRunnable = NULL;
+        return;
+    }
+    jclass runnableClass = (*env)->GetObjectClass(env, callback);
+    jmethodID runMethod = (*env)->GetMethodID(env, runnableClass, "run", "()V");
+    pojav_environ->method_Runnable_run = runMethod;
+    pojav_environ->firstFrameCallbackRunnable = (*env)->NewGlobalRef(env, callback);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_org_lwjgl_glfw_CallbackBridge_nativeFramesRendered(JNIEnv *env, jclass clazz) {
+    return pojav_environ->framesRendered;
+}

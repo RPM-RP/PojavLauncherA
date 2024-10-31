@@ -202,6 +202,8 @@ public class CallbackBridge {
     @CriticalNative private static native void nativeSendScroll(double xoffset, double yoffset);
     @CriticalNative private static native void nativeSendScreenSize(int width, int height);
     public static native void nativeSetWindowAttrib(int attrib, int value);
+    public static native void nativeSetFirstFrameCallback(@Nullable Runnable callback);
+    public static native boolean nativeFramesRendered();
     static {
         System.loadLibrary("pojavexec");
     }

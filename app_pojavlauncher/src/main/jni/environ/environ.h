@@ -58,6 +58,9 @@ struct pojav_environ_s {
     long showingWindow;
     bool isInputReady, isCursorEntered, isUseStackQueueCall, isPumpingEvents;
     int savedWidth, savedHeight;
+    bool framesRendered;
+    jmethodID method_Runnable_run;
+    jobject firstFrameCallbackRunnable;
 #define ADD_CALLBACK_WWIN(NAME) \
     GLFW_invoke_##NAME##_func* GLFW_invoke_##NAME;
     ADD_CALLBACK_WWIN(Char);

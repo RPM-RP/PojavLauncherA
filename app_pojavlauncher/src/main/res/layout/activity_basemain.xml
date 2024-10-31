@@ -58,6 +58,12 @@
 
 		</net.kdt.pojavlaunch.customcontrols.ControlLayout>
 
+		<ImageView
+			android:id="@+id/layout_pre_loading_view"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:srcCompat="@drawable/ic_setting_sign_in_background" />
+
 		<com.kdt.LoggerView
 			android:id="@+id/mainLoggerView"
 			android:layout_width="match_parent"

@@ -24,10 +24,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.DocumentsContract;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -137,6 +139,23 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         ContextExecutor.setActivity(this);
         //Now, attach to the service. The game will only start when this happens, to make sure that we know the right state.
         bindService(gameServiceIntent, this, 0);
+    }
+
+    private void hideLoadingView(View loadingView) {
+        ViewGroup parent = (ViewGroup) loadingView.getParent();
+        parent.removeView(loadingView);
+    }
+
+    private void configureLoadingView() {
+        View loadingView = findViewById(R.id.layout_pre_loading_view);
+        if(loadingView == null) return;
+        if(CallbackBridge.nativeFramesRendered()) {
+            hideLoadingView(loadingView);
+            return;
+        }
+        CallbackBridge.nativeSetFirstFrameCallback(()->{
+            runOnUiThread(()->hideLoadingView(loadingView));
+        });
     }
 
     protected void initLayout(int resId) {
@@ -257,12 +276,14 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     @Override
     public void onResume() {
         super.onResume();
+        configureLoadingView();
         if(mGyroControl != null) mGyroControl.enable();
         CallbackBridge.nativeSetWindowAttrib(LwjglGlfwKeycode.GLFW_HOVERED, 1);
     }
 
     @Override
     protected void onPause() {
+        CallbackBridge.nativeSetFirstFrameCallback(null);
         if(mGyroControl != null) mGyroControl.disable();
         if (CallbackBridge.isGrabbing()){
             sendKeyPress(LwjglGlfwKeycode.GLFW_KEY_ESCAPE);
