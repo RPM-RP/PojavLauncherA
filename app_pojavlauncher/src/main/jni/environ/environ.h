@@ -56,7 +56,7 @@ struct pojav_environ_s {
     JavaVM* dalvikJavaVMPtr;
     JNIEnv* dalvikJNIEnvPtr_ANDROID;
     long showingWindow;
-    bool isInputReady, isCursorEntered, isUseStackQueueCall, isPumpingEvents;
+    bool isInputReady, isCursorEntered, isUseStackQueueCall, shouldUpdateMouse;
     int savedWidth, savedHeight;
     bool framesRendered;
     jmethodID method_Runnable_run;
