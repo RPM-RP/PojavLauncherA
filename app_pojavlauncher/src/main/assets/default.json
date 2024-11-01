@@ -285,7 +285,7 @@
       "dynamicY": "1.0 * ${screen_height} - (px(191.63637) /100.0 * ${preferred_scale}) - (px(49.81818) /100.0 * ${preferred_scale}) - ${margin} + (px(49.81818) /100.0 * ${preferred_scale}) + ${margin} + (px(49.81818) /100.0 * ${preferred_scale}) + ${margin} + (px(49.81818) /100.0 * ${preferred_scale}) + ${margin} - (px(49.81818) /100.0 * ${preferred_scale}) - ${margin}",
       "height": 49.81818,
       "isSwipeable": false,
-      "isToggle": true,
+      "isToggle": false,
       "keycodes": [
         70,
         0,
@@ -350,7 +350,7 @@
   "mJoystickDataList": [
     {
       "absolute": false,
-      "forwardLock": false,
+      "forwardLock": true,
       "bgColor": 1291845632,
       "cornerRadius": 0.0,
       "displayInGame": true,
