@@ -20,12 +20,12 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.DocumentsContract;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -162,6 +162,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 .authority(getPackageName())
                 .appendPath(Integer.toString(R.raw.rpm_mobile_loading))
                 .build();
+        loadingView.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
         loadingView.setVideoURI(videoUri);
         loadingView.setOnErrorListener((mp, what, extra) ->{
             Log.e("LoadingMediaPlayer", "Media error: "+what+ " "+extra);

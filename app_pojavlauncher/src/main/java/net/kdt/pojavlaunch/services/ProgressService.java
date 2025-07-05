@@ -100,4 +100,10 @@ public class ProgressService extends Service implements TaskCountListener {
             }
         });
     }
+
+    @Override
+    public void onTimeout(int startId, int fgsType) {
+        super.onTimeout(startId, fgsType);
+        stopSelf();
+    }
 }
