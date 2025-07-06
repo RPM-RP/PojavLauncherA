@@ -69,7 +69,8 @@ public class MainMenuFragment extends Fragment {
         playButton.setOnClickListener(v -> {
             String userName = mUserNameText.getText().toString();
             userName = userName.trim();
-            if(!userName.matches("^[a-zA-Z0-9_]*$")) {
+            int nameLength = userName.length();
+            if(!userName.matches("^[a-zA-Z0-9_]*$") || !(nameLength >= 3 && nameLength <= 16)) {
                 Toast.makeText(mUserNameText.getContext(), R.string.username_incorrect, Toast.LENGTH_LONG).show();
                 return;
             }
