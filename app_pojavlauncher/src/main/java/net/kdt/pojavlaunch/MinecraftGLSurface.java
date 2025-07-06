@@ -9,6 +9,7 @@ import static org.lwjgl.glfw.CallbackBridge.windowWidth;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.graphics.SurfaceTexture;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -108,8 +109,9 @@ public class MinecraftGLSurface extends View implements GrabListener {
         if(LauncherPreferences.PREF_USE_ALTERNATE_SURFACE){
             SurfaceView surfaceView = new SurfaceView(getContext());
             mSurface = surfaceView;
-
-            surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            SurfaceHolder surfaceHolder = surfaceView.getHolder();
+            surfaceHolder.setFormat(PixelFormat.OPAQUE);
+            surfaceHolder.addCallback(new SurfaceHolder.Callback() {
                 private boolean isCalled = isAlreadyRunning;
                 @Override
                 public void surfaceCreated(@NonNull SurfaceHolder holder) {

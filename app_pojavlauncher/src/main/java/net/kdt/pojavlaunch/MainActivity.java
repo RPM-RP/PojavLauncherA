@@ -144,35 +144,20 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     }
 
     private void hideLoadingView() {
-        View container = findViewById(R.id.layout_pre_loading_view_container);
+        ViewGroup container = findViewById(R.id.layout_pre_loading_view_container);
         if(container == null) return;
+        container.removeAllViews();
         ViewGroup parent = (ViewGroup) container.getParent();
         parent.removeView(container);
     }
 
     private void configureLoadingView() {
-        VideoView loadingView = findViewById(R.id.layout_pre_loading_view);
+        IntroMediaPlayer loadingView = findViewById(R.id.layout_pre_loading_view);
         if(loadingView == null) return;
         if(CallbackBridge.nativeFramesRendered()) {
             hideLoadingView();
             return;
         }
-        Uri videoUri = new Uri.Builder()
-                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                .authority(getPackageName())
-                .appendPath(Integer.toString(R.raw.rpm_mobile_loading))
-                .build();
-        loadingView.setAudioFocusRequest(AudioManager.AUDIOFOCUS_NONE);
-        loadingView.setVideoURI(videoUri);
-        loadingView.setOnErrorListener((mp, what, extra) ->{
-            Log.e("LoadingMediaPlayer", "Media error: "+what+ " "+extra);
-            hideLoadingView();
-            return true;
-        });
-        loadingView.setOnCompletionListener((mp -> {
-            mp.seekTo(12*1000);
-        }));
-        loadingView.start();
         CallbackBridge.nativeSetFirstFrameCallback(()->{
             runOnUiThread(this::hideLoadingView);
         });
